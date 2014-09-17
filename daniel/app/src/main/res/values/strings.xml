@@ -4,7 +4,8 @@
     <string name="app_name">PvC-app</string>
     <string name="edit_message">Brugernavn!?!</string>
     <string name="action_settings">Settings</string>
-
     <string name="button_send">Send dette</string>
+    <string name="title_activity_display_message">Blah!</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
