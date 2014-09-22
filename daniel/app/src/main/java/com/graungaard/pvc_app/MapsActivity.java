@@ -30,13 +30,6 @@ public class MapsActivity extends FragmentActivity {
         //Turns on location
         mMap.setMyLocationEnabled(true);
 
-        try {
-            Thread.sleep(3000);                 //1000 milliseconds is one second.
-        } catch(InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
-
-
 
         //Retrieve username and location and add fancy bubbles
         String username = getUsername();
@@ -100,7 +93,10 @@ public class MapsActivity extends FragmentActivity {
         Location location = mMap.getMyLocation();
 
 
-        // location er null TJHEK hgvordan man henter locations fra et GOogle mao objekt.t
+        //http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial/
+
+
+
         LatLng userlocation = new LatLng(24.89337, 67.02806);
 
         if (location != null) {
