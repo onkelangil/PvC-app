@@ -21,7 +21,6 @@ public class MyActivity extends Activity {
 
     Button btnShowLocation;
     //GPSTracker class
-    GPSTracker gps;
 
 
     public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -85,27 +84,5 @@ public class MyActivity extends Activity {
         }
     }
 
-    //GPSTracker bliver kørt hernede.
-
-        public void onClick(View arg0) {
-                // create class object
-                gps = new GPSTracker(MyActivity.this);
-
-                // check if GPS enabled
-                if(gps.canGetLocation()){
-
-                    double latitude = gps.getLatitude();
-                    double longitude = gps.getLongitude();
-
-                    // \n is for new line
-                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-                }else{
-                    // can't get location
-                    // GPS or Network is not enabled
-                    // Ask user to enable GPS/network in settings
-                    gps.showSettingsAlert();
-                }
-
-            }
 
 }

@@ -48,8 +48,14 @@ public class GPSTracker extends Service implements LocationListener {
             //Får GPS status
             isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
+            Log.w("GPS ENABLED", "" + isGPSEnabled);
+
+
             //Får netværks status
             isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            Log.w("NETWORKS ENABLED", isNetworkEnabled + "");
+
             if(!isGPSEnabled && !isNetworkEnabled){
                 //ingen netværks provider er aktiveret
 
@@ -61,13 +67,16 @@ public class GPSTracker extends Service implements LocationListener {
                             locationManager.NETWORK_PROVIDER,
                             MIN_TIME_BW_UPDATES,
                             MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+
                     Log.d("Network", "Network");
-                    if (locationManager !=null){
+
+                    if (location !=null){
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
                     }
                 }
             }
+
             //hvis GPS er aktiveret få lat/long ved brug a GPS service
             if (isGPSEnabled){
                 if(location == null){

@@ -8,6 +8,8 @@
         import android.support.v4.app.FragmentActivity;
         import android.os.Bundle;
         import android.util.Log;
+        import android.widget.Toast;
+
         import com.google.android.gms.maps.GoogleMap;
         import com.google.android.gms.maps.SupportMapFragment;
         import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -16,6 +18,7 @@
         import com.google.maps.android.ui.IconGenerator;
         public class MapsActivity extends FragmentActivity {
             private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+            GPSTracker gps;
             @Override
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
@@ -27,6 +30,29 @@
                 String username = getUsername();
                 LatLng location = getLocation();
                 createBubble(username, location);
+
+
+                // create class object
+                gps = new GPSTracker(MapsActivity.this);
+
+
+
+                // check if GPS enabled
+                if(gps.canGetLocation()){
+
+                    double latitude = gps.getLatitude();
+                    double longitude = gps.getLongitude();
+
+                    // \n is for new line
+                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+                }else{
+                    // can't get location
+                    // GPS or Network is not enabled
+                    // Ask user to enable GPS/network in settings
+                    gps.showSettingsAlert();
+                }
+
+
             }
             @Override
             protected void onResume() {
@@ -69,6 +95,7 @@
             private void setUpMap() {
                 mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
             }
+
             private LatLng getLocation(){
                 Location location = mMap.getMyLocation();
         //http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial/
