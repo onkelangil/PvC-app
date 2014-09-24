@@ -10,9 +10,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 public class MyActivity extends Activity {
+
+
+    Button btnShowLocation;
+    //GPSTracker class
+    GPSTracker gps;
 
 
     public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -37,6 +46,7 @@ public class MyActivity extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+        btnShowLocation = (Button) findViewById(R.id.btnShowLocation);
     }
 
 
@@ -74,5 +84,28 @@ public class MyActivity extends Activity {
             return rootView;
         }
     }
+
+    //GPSTracker bliver kørt hernede.
+
+        public void onClick(View arg0) {
+                // create class object
+                gps = new GPSTracker(MyActivity.this);
+
+                // check if GPS enabled
+                if(gps.canGetLocation()){
+
+                    double latitude = gps.getLatitude();
+                    double longitude = gps.getLongitude();
+
+                    // \n is for new line
+                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+                }else{
+                    // can't get location
+                    // GPS or Network is not enabled
+                    // Ask user to enable GPS/network in settings
+                    gps.showSettingsAlert();
+                }
+
+            }
 
 }
