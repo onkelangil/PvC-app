@@ -30,7 +30,6 @@ public class MapsActivity extends FragmentActivity implements
 
     private static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 42;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    private UserLocationHandler userLocationHandler;
     private LocationClient locationClient;
     private Location currentLocation;
 
