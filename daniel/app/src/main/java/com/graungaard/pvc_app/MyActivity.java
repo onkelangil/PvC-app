@@ -36,11 +36,8 @@ public class MyActivity extends Activity  {
     private void addUserToServer(String username) {
 
         String dataForServerHandler = "POST" + "," + "/users" + "," + username;
-
         Intent serverHandlerIntent = new Intent(this, ServerHandler.class);
-
         serverHandlerIntent.setData(Uri.parse(dataForServerHandler));
-
         this.startService(serverHandlerIntent);
 
 
