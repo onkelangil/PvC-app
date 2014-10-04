@@ -10,9 +10,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 public class MyActivity extends Activity {
+
+
+    Button btnShowLocation;
+    //GPSTracker class
 
 
     public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -37,6 +45,7 @@ public class MyActivity extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+        btnShowLocation = (Button) findViewById(R.id.btnShowLocation);
     }
 
 
@@ -74,5 +83,6 @@ public class MyActivity extends Activity {
             return rootView;
         }
     }
+
 
 }
