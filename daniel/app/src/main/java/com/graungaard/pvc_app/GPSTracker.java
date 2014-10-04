@@ -56,6 +56,9 @@ public class GPSTracker extends Service implements LocationListener {
 
                 String bestprovider = locationManager.getBestProvider(criteria, true);
 
+                Log.w("LOCATIONDEBUGGING: " , bestprovider);
+
+
                 Location location = locationManager.getLastKnownLocation(bestprovider);
 
                 Log.w("LOCATION HEJ", location + "");

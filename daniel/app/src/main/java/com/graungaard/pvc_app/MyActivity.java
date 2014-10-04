@@ -3,36 +3,47 @@ package com.graungaard.pvc_app;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.EditText;
 
-public class MyActivity extends Activity {
-
-
+public class MyActivity extends Activity  {
     Button btnShowLocation;
-    //GPSTracker class
-
 
     public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
 
-    public void sendMessage(View view) {
+    public void startMap(View view) {
 
         Intent intent = new Intent(this, MapsActivity.class);
         EditText editText = (EditText) findViewById(R.id.edit_username);
         String username = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, username);
+
+        addUserToServer(username);
+
         startActivity(intent);
+
+
+    }
+
+    private void addUserToServer(String username) {
+
+        String dataForServerHandler = "POST" + "," + "/users" + "," + username;
+
+        Intent serverHandlerIntent = new Intent(this, ServerHandler.class);
+
+        serverHandlerIntent.setData(Uri.parse(dataForServerHandler));
+
+        this.startService(serverHandlerIntent);
+
+
     }
 
 
@@ -68,6 +79,7 @@ public class MyActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -82,6 +94,14 @@ public class MyActivity extends Activity {
             View rootView = inflater.inflate(R.layout.fragment_my, container, false);
             return rootView;
         }
+
+        /*
+    * Called by Location Services when the request to connect the
+    * client finishes successfully. At this point, you can
+    * request the current location or start periodic updates
+    */
+
+
     }
 
 
