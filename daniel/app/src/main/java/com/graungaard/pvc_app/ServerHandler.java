@@ -29,6 +29,7 @@ public class ServerHandler extends IntentService {
 
     private final String serverName;
     private ResultReceiver mainActivityReciever;
+    private String action;
 
     public ServerHandler() {
 
@@ -58,7 +59,7 @@ public class ServerHandler extends IntentService {
 
         }
 
-        String action = workIntent.getAction();
+        action = workIntent.getAction();
 
         if (action == "addUser" && data.length <= 1){
 
@@ -66,17 +67,7 @@ public class ServerHandler extends IntentService {
 
         } if(action == "addLocation" && data.length == 2) {
 
-
-            Log.w("LocationHANDLER SIGER: " , "ADD LOCATION BLIVER KØRT");
-
-
-            try {
-                //AD LOCATION METHOD SHOUDL BE CALLED HERE
-                Log.w("RESULT AF USERIDKALD: " , workIntent.getStringExtra("USER_ID"));
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.d("ECEPTION AF TYPEN " , e.getClass() + "");
-            }
+            addLocation(data[0], data[1]);
 
         } else {
 
@@ -87,10 +78,13 @@ public class ServerHandler extends IntentService {
 
     }
 
-    private void addLocation(String latitude, String longitude, String userid){
+    private void addLocation(String latitude, String longitude){
 
+        int userid = ((DataHolderApplication)getApplication()).getUserID();
 
-
+        if(userid == 0){
+            return;
+        }
 
         //Makes namevaluepairs for posting to server
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
@@ -98,9 +92,22 @@ public class ServerHandler extends IntentService {
         pairs.add(new BasicNameValuePair("_METHOD", "PUT"));
 
 
+
         String res = HTTPPost(pairs, "/users/location/" + userid);
 
+        Log.d("UserId er pt: " , userid + "");
         Log.e("ServerHandler respons: " , res);
+
+        String result = getJSONStringField(res, "status");
+
+
+        boolean booleanresult = Boolean.parseBoolean(result);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("RESPONSE_TYPE", action);
+        bundle.putBoolean("LOCATION_RESULT", booleanresult);
+
+        mainActivityReciever.send(1, bundle);
 
     }
 
@@ -117,23 +124,28 @@ public class ServerHandler extends IntentService {
         String res = HTTPPost(pairs, "/users");
 
         //extract ID from JSON object
-        String id = convertJSONToString(res, "id");
+        String id = getJSONStringField(res, "id");
 
         Log.w("Bruger tildelt ID: " ,  id);
 
 
         int userid = Integer.parseInt(id);
 
+
+
         Bundle bundle = new Bundle();
-        bundle.putString("RESPONSE_TYPE", "USER_ID");
-        mainActivityReciever.send(userid, bundle);
+        bundle.putString("RESPONSE_TYPE", action);
+        bundle.putInt("USER_ID", userid);
+
+        mainActivityReciever.send(1, bundle);
 
     }
+
 
     /**
      * Posts stuff to the server returns a string with the servers repons as a JSON object converted to a String
      * @param destination The servers adress
-     * @param data The username of the user
+     * @param data The data for the server
      * @return The id of the user (if a user was added) if something went wrong an empty string  is returned
      */
     private String HTTPPost(List<NameValuePair> data, String destination) {
@@ -184,7 +196,7 @@ public class ServerHandler extends IntentService {
      * @param fieldforexport The filed from the JSON object that shoudl be returned
      * @return The objecta sked as string. If something breaks a empty string is rturned
      */
-    private String convertJSONToString(String jsoninput, String fieldforexport) {
+    private String getJSONStringField(String jsoninput, String fieldforexport) {
 
         JSONObject reader = null;
         JSONObject objectforexport = null;

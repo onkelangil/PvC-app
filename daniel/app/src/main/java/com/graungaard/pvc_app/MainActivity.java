@@ -18,8 +18,8 @@ import android.widget.EditText;
 
 public class MainActivity extends Activity {
     Button btnShowLocation;
-    private int userID;
-    Intent serverHandlerLocationIntent;
+    private Intent serverHandlerLocationIntent;
+    public static DataHolderApplication dataHolder = new DataHolderApplication();
 
     private Handler activityHandler = new Handler();
 
@@ -70,11 +70,6 @@ public class MainActivity extends Activity {
 
     }
 
-    public Integer getUserID(){
-
-        return userID;
-
-    }
 
 
     @Override
@@ -149,11 +144,25 @@ public class MainActivity extends Activity {
 
             //Check which kind of data was send to dertermine what should be done
             try {
-                if(resultData.getString("RESPONSE_TYPE").equals("USER_ID")){
-                    Log.e("HEEEEYYY " , "ET ID!!!!");
-                    userID = resultCode;
-                    serverHandlerLocationIntent.putExtra("USER_ID", resultCode);
+                if(resultCode == 0){
 
+                    Log.e("ERROR :::: " , "Something went wrong in the ServerHandler");
+                    return;
+                }
+
+                if(resultData.getString("RESPONSE_TYPE").equals("addUser")){
+                    Log.e("Main Activity siger:  ", "HEEEEYYY ET ID!!!!");
+
+                    int userid = resultData.getInt("USER_ID");
+
+                    ((DataHolderApplication)getApplication()).setUserID(resultCode);
+
+
+                } else if(resultData.getString("RESPONSE_TYPE").equals("addLocation")) {
+
+                    boolean result = resultData.getBoolean("LOCATION_RESULT");
+
+                    Log.e("Main Activity siger: " , "Status på LocationUpdate er: " + result);
 
                 }
             } catch (NullPointerException e) {

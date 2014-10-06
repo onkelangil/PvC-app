@@ -38,7 +38,7 @@ public class MapsActivity extends FragmentActivity implements
     private Timer userLocationUpdateTimer;
     private Intent serverHandlerIntent;
     private ResultReceiver serverReciever;
-    private int updateCounter = 0;
+    private int updateCounter = 9;
 
     final Handler mapHandler = new Handler();
 
@@ -172,8 +172,6 @@ public class MapsActivity extends FragmentActivity implements
 
     private void updateLocationOnServer(){
 
-        Log.w("UPDATECOUNTER ER" , "" + updateCounter);
-
         if(updateCounter == 9){
 
             addLocationConnect();
@@ -200,9 +198,9 @@ public class MapsActivity extends FragmentActivity implements
         String dataForServerHandler = lat + ";" + lon;
 
         serverHandlerIntent.setAction("addLocation");
+
         //Parse data to intent
         serverHandlerIntent.setData(Uri.parse(dataForServerHandler));
-
 
 
         this.startService(serverHandlerIntent);
