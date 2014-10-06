@@ -65,6 +65,8 @@ public class MapsActivity extends FragmentActivity implements
         locationClient = new LocationClient(this, this, this);
         locationClient.connect();
 
+        Log.w("Hello i'm a location client and my name is: " , locationClient + "");
+
         serverHandlerIntent = getIntent().getParcelableExtra("SERVERHANDLER_INTENT");
 
     }
@@ -162,8 +164,14 @@ public class MapsActivity extends FragmentActivity implements
 
         }
 
-        setLocation();
-        updateLocationOnServer();
+        if (((DataHolderApplication)getApplication()).getCurrentLocation() != null) {
+            setLocation();
+            updateLocationOnServer();
+        } else {
+
+            Log.e("DER OPSTOD EN FEJL" , " LOKATIONEN ER NULL!!! <-- ER dette en emulator????");
+
+        }
 
     }
 
@@ -215,10 +223,11 @@ public class MapsActivity extends FragmentActivity implements
      */
     private LatLng convertLocationToLatLon(Location location) {
 
-        double lat = location.getLatitude();
-        double lon = location.getLongitude();
+            double lat = location.getLatitude();
+            double lon = location.getLongitude();
 
-        return new LatLng(lat, lon);
+            return new LatLng(lat, lon);
+
     }
 
     /**

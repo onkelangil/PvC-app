@@ -82,6 +82,8 @@ public class ServerHandler extends IntentService {
 
         int userid = ((DataHolderApplication)getApplication()).getUserID();
 
+        Log.w("HEEY usERId OG CAPSLOCK " , userid + "");
+
         if(userid == 0){
             return;
         }
@@ -90,7 +92,6 @@ public class ServerHandler extends IntentService {
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
         pairs.add(new BasicNameValuePair("lastlocation", latitude + ";" + longitude));
         pairs.add(new BasicNameValuePair("_METHOD", "PUT"));
-
 
 
         String res = HTTPPost(pairs, "/users/location/" + userid);
