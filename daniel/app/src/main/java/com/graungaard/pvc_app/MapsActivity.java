@@ -68,7 +68,6 @@ public class MapsActivity extends FragmentActivity implements
 
         serverHandlerIntent = getIntent().getParcelableExtra("SERVERHANDLER_INTENT");
 
-
     }
 
     @Override
@@ -84,11 +83,7 @@ public class MapsActivity extends FragmentActivity implements
 
             Toast toast = Toast.makeText(getApplicationContext(), "Venter på placering...", Toast.LENGTH_SHORT);
             toast.show();
-
         }
-
-
-
         }
 
         @Override
@@ -214,15 +209,13 @@ public class MapsActivity extends FragmentActivity implements
      * @param location
      * @return
      */
-    private LatLng convertLocation(Location location) {
+    private LatLng convertLocationToLatLon(Location location) {
 
         double lat = location.getLatitude();
         double lon = location.getLongitude();
 
         return new LatLng(lat, lon);
-
     }
-
 
     /**
      * Places fany bubbles on top of map ion given location with given username
@@ -231,7 +224,7 @@ public class MapsActivity extends FragmentActivity implements
 
         //Retrieve username and location and add fancy bubbles
         String username = getUsername();
-        LatLng location = convertLocation(currentLocation);
+        LatLng location = convertLocationToLatLon(currentLocation);
         createBubble(username, location);
 
     }
@@ -332,6 +325,31 @@ public class MapsActivity extends FragmentActivity implements
 
         Log.w("A TRO DET VA A FAJL NR:  ", "" + errorCode);
 
+    }
+
+    //Takes two latlong objekts and a distance then in cheks if they are within that distance of each other.
+    public Boolean compareCoordinates(LatLng first, LatLng second, Double distance) {
+
+        Double longf = 00.000300;
+        Double langf = 00.000300;
+
+        if (first.latitude < second.latitude) {
+            longf = second.latitude - first.latitude;
+        }
+        if (first.latitude > second.latitude) {
+            longf = first.latitude - second.latitude;
+        }
+        if (first.longitude < second.longitude) {
+            langf = second.latitude - first.latitude;
+        }
+        if (first.longitude > second.longitude) {
+            langf = first.latitude - second.latitude;
+        }
+        if (longf < distance && langf < distance) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
