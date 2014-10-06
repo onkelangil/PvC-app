@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class MainActivity extends Activity {
     Button btnShowLocation;
     private Intent serverHandlerLocationIntent;
@@ -26,7 +28,14 @@ public class MainActivity extends Activity {
     public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
 
-    public void startMap(View view) {
+    public void startGame(View view){
+
+        startMap();
+
+
+    }
+
+    public void startMap() {
 
         Intent intent = new Intent(this, MapsActivity.class);
         EditText editText = (EditText) findViewById(R.id.edit_username);
@@ -69,7 +78,6 @@ public class MainActivity extends Activity {
 
 
     }
-
 
 
     @Override
@@ -127,6 +135,34 @@ public class MainActivity extends Activity {
     */
 
 
+        /**
+         *Takes two latlon objects and a distance then in checks if the objects are within distance of each other.
+         */
+        public Boolean compareCoordinates(LatLng firstcoordinate, LatLng secondcoodinate, Double distance) {
+
+            Double longf = 00.000300;
+            Double langf = 00.000300;
+
+            if (firstcoordinate.latitude < secondcoodinate.latitude) {
+                longf = secondcoodinate.latitude - firstcoordinate.latitude;
+            }
+            if (firstcoordinate.latitude > secondcoodinate.latitude) {
+                longf = firstcoordinate.latitude - secondcoodinate.latitude;
+            }
+            if (firstcoordinate.longitude < secondcoodinate.longitude) {
+                langf = secondcoodinate.latitude - firstcoordinate.latitude;
+            }
+            if (firstcoordinate.longitude > secondcoodinate.longitude) {
+                langf = firstcoordinate.latitude - secondcoodinate.latitude;
+            }
+            if (longf < distance && langf < distance) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
     }
 
     /**
@@ -135,22 +171,26 @@ public class MainActivity extends Activity {
      */
     class ServerReciever extends ResultReceiver {
 
-        public ServerReciever(){
+        public ServerReciever() {
             super(activityHandler);
         }
 
         @Override
-        protected void onReceiveResult(int resultCode, Bundle resultData){
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
 
             //Check which kind of data was send to dertermine what should be done
             try {
-                if(resultCode == 0){
+                if (resultCode == 0) {
 
-                    Log.e("ERROR :::: " , "Something went wrong in the ServerHandler");
+                    String reason = resultData.getString("ERROR_REASON");
+
+                    Log.e("ERROR :::: ", "Something went wrong in the ServerHandler: " + reason);
+
+
                     return;
                 }
 
-                if(resultData.getString("RESPONSE_TYPE").equals("addUser")){
+                if (resultData.getString("RESPONSE_TYPE").equals("addUser")) {
                     Log.e("Main Activity siger:  ", "HEEEEYYY ET ID!!!!");
 
                     int userid = resultData.getInt("USER_ID");
@@ -158,16 +198,21 @@ public class MainActivity extends Activity {
                     ((DataHolderApplication)getApplication()).setUserID(userid);
 
 
-                } else if(resultData.getString("RESPONSE_TYPE").equals("addLocation")) {
+                } else if (resultData.getString("RESPONSE_TYPE").equals("addLocation")) {
 
                     boolean result = resultData.getBoolean("LOCATION_RESULT");
 
-                    Log.e("Main Activity siger: " , "Status på LocationUpdate er: " + result);
+                    Log.e("Main Activity siger: ", "Status på LocationUpdate er: " + result);
 
                 }
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
+
         }
+
+
     }
+
+
 }

@@ -127,10 +127,15 @@ public class ServerHandler extends IntentService {
         //extract ID from JSON object
         String id = getJSONStringField(res, "id");
 
+        if(id.equals("")) {
+            connectFail();
+            return;
+        }
+
         Log.w("Bruger tildelt ID: " ,  id);
 
 
-        int userid = Integer.parseInt(id);
+        Integer userid = Integer.parseInt(id);
 
 
 
@@ -188,6 +193,15 @@ public class ServerHandler extends IntentService {
             return "";
 
 
+
+    }
+
+    public void connectFail() {
+
+        Bundle bundle = new Bundle();
+        bundle.putString("ERROR_REASON", "NO RESPONSE FROM SERVER CHECK YOUR INTERNET CONNECTION.");
+
+        mainActivityReciever.send(0, bundle);
 
     }
 
