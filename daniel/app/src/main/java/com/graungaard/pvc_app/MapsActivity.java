@@ -150,8 +150,10 @@ public class MapsActivity extends FragmentActivity implements
         if (locationClient != null && locationClient.isConnected()) {
 
 
+            locationClient
             Location location = locationClient.getLastLocation();
             LatLng latlonlocation = convertLocationToLatLon(location);
+
             ((DataHolderApplication)getApplication()).setCurrentLocation(latlonlocation);
 
             Log.w("CURRENT LOCATION IS: ", "" + latlonlocation);

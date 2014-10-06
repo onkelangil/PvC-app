@@ -213,6 +213,10 @@ public class MainActivity extends Activity {
 
 
     }
+    public void buttonOnClick(View v){
+        Button button = (Button) v;
+        startActivity(new Intent(getApplicationContext(), CallActivity.class));
+    }
 
 
 }
