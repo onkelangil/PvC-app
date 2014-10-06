@@ -65,9 +65,13 @@ public class ServerHandler extends IntentService {
 
             addUser(data[0]);
 
-        } if(action == "addLocation" && data.length == 2) {
+        } else if (action == "addLocation" && data.length == 2) {
 
             addLocation(data[0], data[1]);
+
+        } else if(action == "getUsers") {
+
+            getUsers();
 
         } else {
 
@@ -82,8 +86,6 @@ public class ServerHandler extends IntentService {
 
         int userid = ((DataHolderApplication)getApplication()).getUserID();
 
-        Log.w("HEEY usERId OG CAPSLOCK " , userid + "");
-
         if(userid == 0){
             return;
         }
@@ -97,7 +99,7 @@ public class ServerHandler extends IntentService {
         String res = HTTPPost(pairs, "/users/location/" + userid);
 
         Log.d("UserId er pt: " , userid + "");
-        Log.e("ServerHandler respons: " , res);
+        Log.w("ServerHandler respons: " , res);
 
         String result = getJSONStringField(res, "status");
 
@@ -204,9 +206,12 @@ public class ServerHandler extends IntentService {
 
     }
 
-    private int HTTPGetUser(){
+    private int getUsers(){
 
         String users = HTTPGet(serverName + "/users");
+
+        Log.w("USERS ER EN" , users.getClass() + "");
+
 
 
         return 0;

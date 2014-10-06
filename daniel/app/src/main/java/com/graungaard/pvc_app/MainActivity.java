@@ -20,8 +20,9 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends Activity {
     Button btnShowLocation;
-    private Intent serverHandlerLocationIntent;
     public static DataHolderApplication dataHolder = new DataHolderApplication();
+    private Intent serverHandlerMainIntent;
+    private ServerReciever serverReciever = new ServerReciever();
 
     private Handler activityHandler = new Handler();
 
@@ -32,9 +33,26 @@ public class MainActivity extends Activity {
 
         startMap();
 
-     //   SensorManager sensormanager = ((SensorManager)getSystemService(SENSOR_SERVICE));
+        setupAppState();
 
-       // ToolHandler toolHandler= new ToolHandler(sensormanager);
+        // SensorManager sensormanager = ((SensorManager)getSystemService(SENSOR_SERVICE));
+
+        // ToolHandler toolHandler= new ToolHandler(sensormanager)
+
+
+
+    }
+
+    private void setupAppState() {
+
+        serverHandlerMainIntent.setAction("getUsers");
+
+        serverHandlerMainIntent.setAction("addUser");
+
+        //Send reciever to ServerHandler
+        serverHandlerMainIntent.putExtra("mainReciever", serverReciever);
+
+        this.startService(serverHandlerMainIntent);
 
 
 
@@ -49,7 +67,7 @@ public class MainActivity extends Activity {
         intent.putExtra(EXTRA_MESSAGE, username);
 
 
-        serverHandlerLocationIntent = new Intent(this, ServerHandler.class);
+        Intent serverHandlerLocationIntent = new Intent(this, ServerHandler.class);
         serverHandlerLocationIntent.putExtra("mainReciever", new ServerReciever());
 
 
@@ -71,16 +89,14 @@ public class MainActivity extends Activity {
         //Constructs URI with data for server
         String dataForServerHandler = username;
 
-        Intent serverHandlerUsernameIntent = new Intent(this, ServerHandler.class);
 
-
-        serverHandlerUsernameIntent.setAction("addUser");
+        serverHandlerMainIntent.setAction("addUser");
         //Parse data to intent
-        serverHandlerUsernameIntent.setData(Uri.parse(dataForServerHandler));
+        serverHandlerMainIntent.setData(Uri.parse(dataForServerHandler));
         //Send reciever to ServerHandler
-        serverHandlerUsernameIntent.putExtra("mainReciever", new ServerReciever());
+        serverHandlerMainIntent.putExtra("mainReciever", serverReciever);
 
-        this.startService(serverHandlerUsernameIntent);
+        this.startService(serverHandlerMainIntent);
 
 
     }
@@ -96,6 +112,10 @@ public class MainActivity extends Activity {
                     .commit();
         }
         btnShowLocation = (Button) findViewById(R.id.btnShowLocation);
+
+
+        serverHandlerMainIntent = new Intent(this, ServerHandler.class);
+
     }
 
 
@@ -208,7 +228,7 @@ public class MainActivity extends Activity {
 
                     boolean result = resultData.getBoolean("LOCATION_RESULT");
 
-                    Log.e("Main Activity siger: ", "Status på LocationUpdate er: " + result);
+                    Log.w("Main Activity siger: ", "Status på LocationUpdate er: " + result);
 
                 }
             } catch (NullPointerException e) {
