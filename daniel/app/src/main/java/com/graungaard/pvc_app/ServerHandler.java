@@ -128,7 +128,7 @@ public class ServerHandler extends IntentService {
         String id = getJSONStringField(res, "id");
 
         if(id.equals("")) {
-            connectFail();
+            connectFail("NO RESPONSE FROM SERVER CHECK YOUR INTERNET CONNECTION.");
             return;
         }
 
@@ -196,10 +196,31 @@ public class ServerHandler extends IntentService {
 
     }
 
-    public void connectFail() {
+
+    private String HTTPGet(String destination){
+
+        return HTTPGet(destination);
+
+
+    }
+
+    private int HTTPGetUser(){
+
+        String users = HTTPGet(serverName + "/users");
+
+
+        return 0;
+
+    }
+
+
+    /**
+     * Called if the connection failes
+     */
+    public void connectFail(String reason) {
 
         Bundle bundle = new Bundle();
-        bundle.putString("ERROR_REASON", "NO RESPONSE FROM SERVER CHECK YOUR INTERNET CONNECTION.");
+        bundle.putString("ERROR_REASON", reason);
 
         mainActivityReciever.send(0, bundle);
 
