@@ -164,7 +164,7 @@ public class MapsActivity extends FragmentActivity implements
 
         }
 
-        if (currentLocation != null) {
+        if (((DataHolderApplication)getApplication()).getCurrentLocation() != null) {
             setLocation();
             updateLocationOnServer();
         } else {
