@@ -10,6 +10,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -18,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -201,18 +203,32 @@ public class ServerHandler extends IntentService {
 
     private String HTTPGet(String destination){
 
-        return HTTPGet(destination);
+
+        InputStream content = null;
+        try {
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpResponse response = httpclient.execute(new HttpGet(destination));
+            content = response.getEntity().getContent();
+        } catch (Exception e) {
+            Log.e("[GET REQUEST]", "Network exception");
+        }
+        return content.toString();
 
 
     }
 
-    private int getUsers(){
+    private int getUsers()  {
+
+
+        Log.e("GETUSEEERES " , "IS RUNNING");
 
         String users = HTTPGet(serverName + "/users");
 
-        Log.w("USERS ER EN" , users.getClass() + "");
-
-
+        try {
+            JSONObject reader = new JSONObject(users);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         return 0;
 
