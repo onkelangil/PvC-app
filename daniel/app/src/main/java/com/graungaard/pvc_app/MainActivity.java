@@ -159,11 +159,6 @@ public class MainActivity extends Activity {
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
-
         }
-
-
     }
-
-
 }
