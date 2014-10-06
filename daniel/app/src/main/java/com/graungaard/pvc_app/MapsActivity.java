@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Bitmap;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.ResultReceiver;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -34,10 +36,17 @@ public class MapsActivity extends FragmentActivity implements
     private Location currentLocation;
 
     private Timer userLocationUpdateTimer;
+    private Intent serverHandlerIntent;
+    private ResultReceiver serverReciever;
+    private int updateCounter = 0;
 
     final Handler mapHandler = new Handler();
 
+    /**
+     *called from Handler to get map updating userlocation
+     */
     final Runnable runUpdateLocation = new Runnable() {
+
         @Override
         public void run() {
             updateLocation();
@@ -49,11 +58,15 @@ public class MapsActivity extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
-        //Turns on location
-        mMap.setMyLocationEnabled(true);
+
+        //Turns on blue dot
+        //mMap.setMyLocationEnabled(true);
+
 
         locationClient = new LocationClient(this, this, this);
         locationClient.connect();
+
+        serverHandlerIntent = getIntent().getParcelableExtra("SERVERHANDLER_INTENT");
 
 
     }
@@ -133,29 +146,76 @@ public class MapsActivity extends FragmentActivity implements
 
 
     /**
-     * Called from timer
-     * Asks the locationclient top update its location
+     * Called from Handler which is setoff by timer
+     * Asks the locationclient to update its location
      */
     public void updateLocation() {
 
-        if (locationClient != null) {
+        if (locationClient != null && locationClient.isConnected()) {
 
 
             currentLocation = locationClient.getLastLocation();
             Log.w("CURRENT LOCATION IS: ", "" + currentLocation);
-            Log.w("LOCATION OBJEKTET ER EN ", "" + currentLocation.getClass());
 
         } else {
 
-            Log.w("LOCATION: ", "LOCATIONCLIENT ER NULL");
+            Log.w("LOCATION: ", "LOCATIONCLIENT ER NULL Eller connecter");
+
+            Toast.makeText(this, "Søger efter lokation...", Toast.LENGTH_SHORT);
 
         }
 
         setLocation();
+        updateLocationOnServer();
+
+    }
+
+    private void updateLocationOnServer(){
+
+        Log.w("UPDATECOUNTER ER" , "" + updateCounter);
+
+        if(updateCounter == 9){
+
+            addLocationConnect();
+            updateCounter = 0;
+
+            Log.w("HEEEEYYYY" , "JEG KØRER UPDATE");
+        } else {
+
+            updateCounter++;
+
+        }
+
+
+    }
+
+    private void addLocationConnect(){
+
+        //Constructs URI with data for server
+
+        double lat = currentLocation.getLatitude();
+        double lon = currentLocation.getLongitude();
+
+
+        String dataForServerHandler = lat + ";" + lon;
+
+        serverHandlerIntent.setAction("addLocation");
+        //Parse data to intent
+        serverHandlerIntent.setData(Uri.parse(dataForServerHandler));
+
+
+
+        this.startService(serverHandlerIntent);
+
 
     }
 
 
+    /**
+     * Takes a Location object and returns it as at LatLng object
+     * @param location
+     * @return
+     */
     private LatLng convertLocation(Location location) {
 
         double lat = location.getLatitude();
@@ -166,6 +226,9 @@ public class MapsActivity extends FragmentActivity implements
     }
 
 
+    /**
+     * Places fany bubbles on top of map ion given location with given username
+     */
     private void setLocation() {
 
         //Retrieve username and location and add fancy bubbles
@@ -176,12 +239,21 @@ public class MapsActivity extends FragmentActivity implements
     }
 
 
+    /**
+     * Gets username from GUI activity
+     * @return
+     */
     private String getUsername() {
         Intent parentIntent = getIntent();
-        String username = parentIntent.getStringExtra(MyActivity.EXTRA_MESSAGE);
+        String username = parentIntent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         return username;
     }
 
+    /**
+     * Creates fancy bubbles on map
+     * @param iconCaption The texxt which shoulkd e inside the bubble
+     * @param location The placement of the bubble
+     */
     private void createBubble(String iconCaption, LatLng location) {
         //Make new factory to genetate bubbles
         IconGenerator factory = new IconGenerator(this);
@@ -265,9 +337,5 @@ public class MapsActivity extends FragmentActivity implements
     }
 
 
-
 }
 
-/**
- * Class for running update in new sthread
- */
