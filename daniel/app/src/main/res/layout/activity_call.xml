@@ -23,7 +23,7 @@
         android:layout_width="500dp"
         android:layout_height="200dp"
         android:id="@+id/imageView"
-        android:src="@drawable/godF"
+        android:src="@drawable/godfather"
         android:layout_marginTop="59dp"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />

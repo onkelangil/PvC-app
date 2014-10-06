@@ -3,7 +3,6 @@ package com.graungaard.pvc_app;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +34,10 @@ public class MainActivity extends Activity {
         startMap();
 
         setupAppState();
+
+        Intent intent = new Intent(this, StartNodeActivity.class);
+        startActivity(intent);
+
 
         // SensorManager sensormanager = ((SensorManager)getSystemService(SENSOR_SERVICE));
 
@@ -240,13 +243,7 @@ public class MainActivity extends Activity {
 
 
     }
-    //Knappen der trigger næste skærmbillede + lyd til ringetone
-    public void buttonOnClick(View v){
-        Button button = (Button) v;
-        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.drawable.Ringetone);
-        mp.start();
-        startActivity(new Intent(getApplicationContext(), CallActivity.class));
-    }
+
 
 
 }

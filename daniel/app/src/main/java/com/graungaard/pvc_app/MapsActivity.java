@@ -149,8 +149,6 @@ public class MapsActivity extends FragmentActivity implements
 
         if (locationClient != null && locationClient.isConnected()) {
 
-
-            locationClient
             Location location = locationClient.getLastLocation();
             LatLng latlonlocation = convertLocationToLatLon(location);
 
