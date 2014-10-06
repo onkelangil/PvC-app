@@ -13,6 +13,7 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -33,12 +34,13 @@
 
         <service
             android:name=".ServerHandler"
-            android:exported="false"/>
+            android:exported="false" />
 
+        <activity
+            android:name=".StartNodeActivity"
+            android:label="@string/title_activity_start_node" >
+        </activity>
     </application>
-
-
-
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />

@@ -195,7 +195,7 @@ public class MainActivity extends Activity {
 
                     int userid = resultData.getInt("USER_ID");
 
-                    ((DataHolderApplication) getApplication()).setUserID(resultCode);
+                    ((DataHolderApplication)getApplication()).setUserID(userid);
 
 
                 } else if (resultData.getString("RESPONSE_TYPE").equals("addLocation")) {
