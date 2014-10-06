@@ -327,7 +327,9 @@ public class MapsActivity extends FragmentActivity implements
 
     }
 
-    //Takes two latlong objekts and a distance then in cheks if they are within that distance of each other.
+    /**
+     *Takes two latlong objekts and a distance then in cheks if they are within that distance of each other.
+     */
     public Boolean compareCoordinates(LatLng first, LatLng second, Double distance) {
 
         Double longf = 00.000300;
