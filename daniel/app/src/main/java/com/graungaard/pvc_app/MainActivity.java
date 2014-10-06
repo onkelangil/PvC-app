@@ -51,8 +51,6 @@ public class MainActivity extends Activity {
 
         serverHandlerMainIntent.setAction("getUsers");
 
-        serverHandlerMainIntent.setAction("addUser");
-
         //Send reciever to ServerHandler
         serverHandlerMainIntent.putExtra("mainReciever", serverReciever);
 
@@ -221,7 +219,7 @@ public class MainActivity extends Activity {
                 }
 
                 if (resultData.getString("RESPONSE_TYPE").equals("addUser")) {
-                    Log.e("Main Activity siger:  ", "HEEEEYYY ET ID!!!!");
+                    Log.d("Main Activity siger:  ", "HEEEEYYY ET ID!!!!");
 
                     int userid = resultData.getInt("USER_ID");
 
