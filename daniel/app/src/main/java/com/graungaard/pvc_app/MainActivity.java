@@ -32,6 +32,12 @@ public class MainActivity extends Activity {
 
         startMap();
 
+     //   SensorManager sensormanager = ((SensorManager)getSystemService(SENSOR_SERVICE));
+
+       // ToolHandler toolHandler= new ToolHandler(sensormanager);
+
+
+
 
     }
 
