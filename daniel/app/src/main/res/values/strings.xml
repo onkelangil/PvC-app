@@ -9,5 +9,6 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_start_node">StartNodeActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_call">CallActivity</string>
 
 </resources>

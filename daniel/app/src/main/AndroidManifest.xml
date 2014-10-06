@@ -40,6 +40,10 @@
             android:name=".StartNodeActivity"
             android:label="@string/title_activity_start_node" >
         </activity>
+        <activity
+            android:name=".CallActivity"
+            android:label="@string/title_activity_call" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

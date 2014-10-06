@@ -9,5 +9,5 @@ import org.w3c.dom.Node;
  */
 public class AbstractNodeActivity extends Activity {
 
-    private ToolHandler theToolHandler;
+    private ToolHandler toolHandler;
 }
