@@ -15,8 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
     Button btnShowLocation;
@@ -27,16 +30,15 @@ public class MainActivity extends Activity {
     private Handler activityHandler = new Handler();
 
     public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    private boolean hasPartner;
+    private User setPartner;
 
 
     public void startGame(View view){
 
-        startMap();
 
         setupAppState();
 
-        Intent intent = new Intent(this, StartNodeActivity.class);
-        startActivity(intent);
 
 
         // SensorManager sensormanager = ((SensorManager)getSystemService(SENSOR_SERVICE));
@@ -49,6 +51,63 @@ public class MainActivity extends Activity {
 
     private void setupAppState() {
 
+        while(!hasPartner){
+
+            updateUserArrayList();
+
+            findPartner();
+
+            Toast.makeText(this, "Leder efter Partner -- Stil dig samme sted som en anden mens han/hun logger ind" , Toast.LENGTH_LONG);
+
+
+            try {
+                Thread.sleep(1000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        initiateGame();
+
+
+    }
+
+    private void initiateGame() {
+
+        Intent intent = new Intent(this, StartNodeActivity.class);
+        startActivity(intent);
+        startMap();
+
+
+
+    }
+
+    private void findPartner() {
+
+        ArrayList<User> allUsers = ((DataHolderApplication) getApplication()).getAllUsers();
+
+        for(User u : allUsers){
+
+            LatLng otherlocation = u.getLasttLocation();
+            LatLng mylocation = ((DataHolderApplication)getApplication()).getCurrentLocation();
+
+            //TODO: CHECK CONSTANT
+            if(compareCoordinates(otherlocation, mylocation, new Double(10))){
+
+                this.setPartner = u;
+                this.hasPartner = true;
+
+            }
+
+        }
+
+
+    }
+
+    private void updateUserArrayList() {
+
         serverHandlerMainIntent.setAction("getUsers");
 
         //Send reciever to ServerHandler
@@ -56,10 +115,8 @@ public class MainActivity extends Activity {
 
         this.startService(serverHandlerMainIntent);
 
-
-
-
     }
+
 
     public void startMap() {
 
@@ -142,8 +199,36 @@ public class MainActivity extends Activity {
 
 
     /**
+     *Takes two latlon objects and a distance then in checks if the objects are within distance of each other.
+     */
+    public Boolean compareCoordinates(LatLng firstcoordinate, LatLng secondcoodinate, Double distance) {
+
+        Double longf = 00.000300;
+        Double langf = 00.000300;
+
+        if (firstcoordinate.latitude < secondcoodinate.latitude) {
+            longf = secondcoodinate.latitude - firstcoordinate.latitude;
+        }
+        if (firstcoordinate.latitude > secondcoodinate.latitude) {
+            longf = firstcoordinate.latitude - secondcoodinate.latitude;
+        }
+        if (firstcoordinate.longitude < secondcoodinate.longitude) {
+            langf = secondcoodinate.latitude - firstcoordinate.latitude;
+        }
+        if (firstcoordinate.longitude > secondcoodinate.longitude) {
+            langf = firstcoordinate.latitude - secondcoodinate.latitude;
+        }
+        if (longf < distance && langf < distance) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    /**
      * A placeholder fragment containing a simple view.
      */
+
     public static class PlaceholderFragment extends Fragment {
 
         public PlaceholderFragment() {
@@ -156,6 +241,7 @@ public class MainActivity extends Activity {
             return rootView;
         }
 
+
         /*
     * Called by Location Services when the request to connect the
     * client finishes successfully. At this point, you can
@@ -163,40 +249,12 @@ public class MainActivity extends Activity {
     */
 
 
-        /**
-         *Takes two latlon objects and a distance then in checks if the objects are within distance of each other.
-         */
-        public Boolean compareCoordinates(LatLng firstcoordinate, LatLng secondcoodinate, Double distance) {
-
-            Double longf = 00.000300;
-            Double langf = 00.000300;
-
-            if (firstcoordinate.latitude < secondcoodinate.latitude) {
-                longf = secondcoodinate.latitude - firstcoordinate.latitude;
-            }
-            if (firstcoordinate.latitude > secondcoodinate.latitude) {
-                longf = firstcoordinate.latitude - secondcoodinate.latitude;
-            }
-            if (firstcoordinate.longitude < secondcoodinate.longitude) {
-                langf = secondcoodinate.latitude - firstcoordinate.latitude;
-            }
-            if (firstcoordinate.longitude > secondcoodinate.longitude) {
-                langf = firstcoordinate.latitude - secondcoodinate.latitude;
-            }
-            if (longf < distance && langf < distance) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-
     }
-
     /**
      * Resultreciever with reference to activities handler.
      * Makes it possible for serverhandler to parse data back
      */
+
     class ServerReciever extends ResultReceiver {
 
         public ServerReciever() {
@@ -232,7 +290,17 @@ public class MainActivity extends Activity {
 
                     Log.w("Main Activity siger: ", "Status på LocationUpdate er: " + result);
 
+                } else if (resultData.getString("RESPONSE_TYPE").equals("getUsers")) {
+
+                    ArrayList<User> users = ((DataHolderApplication) getApplication()).getAllUsers();
+
+                    for(User u : users){
+                        Log.w("User: " , u.toString());
+
+                    }
+
                 }
+
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
