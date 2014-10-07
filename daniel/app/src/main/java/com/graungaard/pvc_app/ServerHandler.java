@@ -10,6 +10,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -18,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,9 +67,13 @@ public class ServerHandler extends IntentService {
 
             addUser(data[0]);
 
-        } if(action == "addLocation" && data.length == 2) {
+        } else if (action == "addLocation" && data.length == 2) {
 
             addLocation(data[0], data[1]);
+
+        } else if(action == "getUsers") {
+
+            getUsers();
 
         } else {
 
@@ -92,11 +98,10 @@ public class ServerHandler extends IntentService {
         pairs.add(new BasicNameValuePair("_METHOD", "PUT"));
 
 
-
         String res = HTTPPost(pairs, "/users/location/" + userid);
 
         Log.d("UserId er pt: " , userid + "");
-        Log.e("ServerHandler respons: " , res);
+        Log.w("ServerHandler respons: " , res);
 
         String result = getJSONStringField(res, "status");
 
@@ -126,10 +131,15 @@ public class ServerHandler extends IntentService {
         //extract ID from JSON object
         String id = getJSONStringField(res, "id");
 
+        if(id.equals("")) {
+            connectFail("NO RESPONSE FROM SERVER CHECK YOUR INTERNET CONNECTION.");
+            return;
+        }
+
         Log.w("Bruger tildelt ID: " ,  id);
 
 
-        int userid = Integer.parseInt(id);
+        Integer userid = Integer.parseInt(id);
 
 
 
@@ -187,6 +197,53 @@ public class ServerHandler extends IntentService {
             return "";
 
 
+
+    }
+
+
+    private String HTTPGet(String destination){
+
+
+        InputStream content = null;
+        try {
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpResponse response = httpclient.execute(new HttpGet(destination));
+            content = response.getEntity().getContent();
+        } catch (Exception e) {
+            Log.e("[GET REQUEST]", "Network exception");
+        }
+        return content.toString();
+
+
+    }
+
+    private int getUsers()  {
+
+
+        Log.e("GETUSEEERES " , "IS RUNNING");
+
+        String users = HTTPGet(serverName + "/users");
+
+        try {
+            JSONObject reader = new JSONObject(users);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+
+    }
+
+
+    /**
+     * Called if the connection failes
+     */
+    public void connectFail(String reason) {
+
+        Bundle bundle = new Bundle();
+        bundle.putString("ERROR_REASON", reason);
+
+        mainActivityReciever.send(0, bundle);
 
     }
 

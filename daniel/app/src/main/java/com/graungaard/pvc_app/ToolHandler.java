@@ -6,20 +6,25 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+<<<<<<< HEAD
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+=======
+import android.util.Log;
+>>>>>>> origin/master
 
 import java.util.ArrayList;
 
 /**
- * Created by anders on 06-10-2014.
+ * Created by daniel on 10/6/14.
  */
 
 
 public class ToolHandler implements SensorEventListener {
 
+<<<<<<< HEAD
     Context AppContext;
     private boolean mInitialized;
     private SensorManager mSensorManager;
@@ -125,6 +130,33 @@ public class ToolHandler implements SensorEventListener {
             Log.w("deltay", deltaY + "");
         }
 
+=======
+
+    public ToolHandler(SensorManager sensormanager){
+
+        Sensor accelerometer = sensormanager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+
+    }
+
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        float x = event.values[0];
+        float y = event.values[1];
+        float z = event.values[2];
+        if(event.values[0]!=0){
+//            try {
+//               Thread.sleep(16);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+            ArrayList<Float> xAxixCounter = new ArrayList<Float>();
+            xAxixCounter.add(event.values[0]);
+            Log.w("ACCELOUTPUT: " , xAxixCounter + "");
+
+        }
+>>>>>>> origin/master
 
     }
 

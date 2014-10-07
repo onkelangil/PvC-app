@@ -33,7 +33,6 @@ public class MapsActivity extends FragmentActivity implements
     private static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 42;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private LocationClient locationClient;
-    private Location currentLocation;
 
     private Timer userLocationUpdateTimer;
     private Intent serverHandlerIntent;
@@ -66,6 +65,8 @@ public class MapsActivity extends FragmentActivity implements
         locationClient = new LocationClient(this, this, this);
         locationClient.connect();
 
+        Log.w("Hello i'm a location client and my name is: " , locationClient + "");
+
         serverHandlerIntent = getIntent().getParcelableExtra("SERVERHANDLER_INTENT");
 
     }
@@ -75,7 +76,7 @@ public class MapsActivity extends FragmentActivity implements
         super.onStart();
 
 
-        if (currentLocation != null) {
+        if (((DataHolderApplication)getApplication()).getCurrentLocation() != null) {
 
             setLocation();
 
@@ -148,9 +149,12 @@ public class MapsActivity extends FragmentActivity implements
 
         if (locationClient != null && locationClient.isConnected()) {
 
+            Location location = locationClient.getLastLocation();
+            LatLng latlonlocation = convertLocationToLatLon(location);
 
-            currentLocation = locationClient.getLastLocation();
-            Log.w("CURRENT LOCATION IS: ", "" + currentLocation);
+            ((DataHolderApplication)getApplication()).setCurrentLocation(latlonlocation);
+
+            Log.w("CURRENT LOCATION IS: ", "" + latlonlocation);
 
         } else {
 
@@ -160,8 +164,14 @@ public class MapsActivity extends FragmentActivity implements
 
         }
 
-        setLocation();
-        updateLocationOnServer();
+        if (((DataHolderApplication)getApplication()).getCurrentLocation() != null) {
+            setLocation();
+            updateLocationOnServer();
+        } else {
+
+            Log.e("DER OPSTOD EN FEJL" , " LOKATIONEN ER NULL!!! <-- ER dette en emulator????");
+
+        }
 
     }
 
@@ -186,8 +196,10 @@ public class MapsActivity extends FragmentActivity implements
 
         //Constructs URI with data for server
 
-        double lat = currentLocation.getLatitude();
-        double lon = currentLocation.getLongitude();
+        LatLng location = ((DataHolderApplication)getApplication()).getCurrentLocation();
+
+        double lat = location.latitude;
+        double lon = location.longitude;
 
 
         String dataForServerHandler = lat + ";" + lon;
@@ -211,10 +223,11 @@ public class MapsActivity extends FragmentActivity implements
      */
     private LatLng convertLocationToLatLon(Location location) {
 
-        double lat = location.getLatitude();
-        double lon = location.getLongitude();
+            double lat = location.getLatitude();
+            double lon = location.getLongitude();
 
-        return new LatLng(lat, lon);
+            return new LatLng(lat, lon);
+
     }
 
     /**
@@ -224,7 +237,7 @@ public class MapsActivity extends FragmentActivity implements
 
         //Retrieve username and location and add fancy bubbles
         String username = getUsername();
-        LatLng location = convertLocationToLatLon(currentLocation);
+        LatLng location = ((DataHolderApplication)getApplication()).getCurrentLocation();
         createBubble(username, location);
 
     }
@@ -326,34 +339,6 @@ public class MapsActivity extends FragmentActivity implements
         Log.w("A TRO DET VA A FAJL NR:  ", "" + errorCode);
 
     }
-
-    /**
-     *Takes two latlong objekts and a distance then in cheks if they are within that distance of each other.
-     */
-    public Boolean compareCoordinates(LatLng first, LatLng second, Double distance) {
-
-        Double longf = 00.000300;
-        Double langf = 00.000300;
-
-        if (first.latitude < second.latitude) {
-            longf = second.latitude - first.latitude;
-        }
-        if (first.latitude > second.latitude) {
-            longf = first.latitude - second.latitude;
-        }
-        if (first.longitude < second.longitude) {
-            langf = second.latitude - first.latitude;
-        }
-        if (first.longitude > second.longitude) {
-            langf = first.latitude - second.latitude;
-        }
-        if (longf < distance && langf < distance) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 
 }
 
