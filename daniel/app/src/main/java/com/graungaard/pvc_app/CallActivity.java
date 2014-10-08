@@ -37,7 +37,11 @@ public class CallActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+<<<<<<< HEAD
     public void buttonOnClick(View v) {
+=======
+    public void buttonOnClick(View v){
+>>>>>>> origin/master
         Button button = (Button) v;
         startActivity(new Intent(this, MafiaMessageActivity.class));
     }

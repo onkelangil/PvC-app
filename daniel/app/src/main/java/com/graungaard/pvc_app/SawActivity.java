@@ -1,33 +1,38 @@
 package com.graungaard.pvc_app;
 
 import android.app.Activity;
-<<<<<<< HEAD
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-=======
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
->>>>>>> origin/master
+import android.widget.ProgressBar;
 
 
-public class MissionInfoActivity extends Activity {
+public class SawActivity extends Activity {
+
+    ProgressBar pb;
+    ToolHandler th = new ToolHandler();
+    int startprogress = 0;
+    int progressSaw = th.getProgressSaw();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mission_info);
+        setContentView(R.layout.activity_saw);
+        pb = (ProgressBar) findViewById(R.id.progressBar1);
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+
+
+            }
+        }
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.mission_info, menu);
+        getMenuInflater().inflate(R.menu.saw, menu);
         return true;
     }
 
@@ -42,11 +47,6 @@ public class MissionInfoActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-<<<<<<< HEAD
-=======
-    public void buttonOnClick(View v) {
-        Button button = (Button) v;
-        startActivity(new Intent(this, GpsActivity.class));
-    }
->>>>>>> origin/master
+
+
 }

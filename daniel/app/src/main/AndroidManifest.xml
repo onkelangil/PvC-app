@@ -52,6 +52,33 @@
             android:name=".MissionInfoActivity"
             android:label="@string/title_activity_mission_info" >
         </activity>
+<<<<<<< HEAD
+=======
+        <activity
+            android:name=".GpsActivity"
+            android:label="@string/title_activity_mission_info" >
+        </activity>
+        <activity
+            android:name=".WeaponActivity"
+            android:label="@string/title_activity_weapon" >
+        </activity>
+        <activity
+            android:name=".SawActivity"
+            android:label="@string/title_activity_saw" >
+        </activity>
+        <activity
+            android:name=".AxeActivity"
+            android:label="@string/title_activity_axe" >
+        </activity>
+        <activity
+            android:name=".SuccessActivity"
+            android:label="@string/title_activity_success" >
+        </activity>
+        <activity
+            android:name=".PoliceActivity"
+            android:label="@string/title_activity_police" >
+        </activity>
+>>>>>>> origin/master
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

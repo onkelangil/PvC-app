@@ -6,51 +6,44 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.graungaard.pvc_app.CallActivity"
+    tools:context="com.graungaard.pvc_app.PoliceActivity"
     android:background="#000000">
 
     <TextView
-        android:text="Don calling..."
+        android:text="Flemming Bækgaard calling.."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:textSize="35dp"
-        android:layout_centerHorizontal="true"
+        android:textSize="27dp"
         android:textColor="#ffffff"
-        />
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
-        android:layout_width="500dp"
-        android:layout_height="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:src="@drawable/godfather"
-        android:layout_marginTop="59dp"
-        android:layout_below="@+id/textView"
+        android:src="@drawable/flemse"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
-
     <Button
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Accept"
         android:id="@+id/button"
-        android:layout_marginBottom="56dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
         android:background="#40FF00"
-<<<<<<< HEAD
-        android:onClick="buttonOnClick" />
-=======
-        android:onClick="buttonOnClick"/>
->>>>>>> origin/master
+        android:onClick="buttonOnClick"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Decline"
         android:id="@+id/button2"
-        android:layout_alignTop="@+id/button"
-        android:layout_alignEnd="@+id/imageView"
         android:background="#FF0000"
-        android:src="@drawable/godfather" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/textView2" />
+
 
 </RelativeLayout>

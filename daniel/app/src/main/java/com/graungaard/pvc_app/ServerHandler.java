@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -15,11 +17,11 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,9 +96,11 @@ public class ServerHandler extends IntentService {
 
         //Makes namevaluepairs for posting to server
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-        pairs.add(new BasicNameValuePair("lastlocation", latitude + ";" + longitude));
+        pairs.add(new BasicNameValuePair("lastlocation", latitude + "@" + longitude));
         pairs.add(new BasicNameValuePair("_METHOD", "PUT"));
 
+
+        Log.d("Poster lokationen til server: ", latitude + "@" + longitude);
 
         String res = HTTPPost(pairs, "/users/location/" + userid);
 
@@ -123,7 +127,7 @@ public class ServerHandler extends IntentService {
         //Makes namevaluepairs for posting to server
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
         pairs.add(new BasicNameValuePair("name", username));
-        pairs.add(new BasicNameValuePair("email", "ØØØØHHH EMAIL?!"));
+        pairs.add(new BasicNameValuePair("email", "user@user.dk"));
         pairs.add(new BasicNameValuePair("_METHOD", "POST"));
 
         String res = HTTPPost(pairs, "/users");
@@ -196,41 +200,121 @@ public class ServerHandler extends IntentService {
 
             return "";
 
-
-
     }
 
 
     private String HTTPGet(String destination){
 
 
-        InputStream content = null;
+        String res = "";
         try {
             HttpClient httpclient = new DefaultHttpClient();
-            HttpResponse response = httpclient.execute(new HttpGet(destination));
-            content = response.getEntity().getContent();
+            HttpResponse response = httpclient.execute(new HttpGet(serverName + destination));
+
+            Log.w("SERVER: ", "Getter"  + " FRA " + serverName + destination);
+
+            res = EntityUtils.toString(response.getEntity());
+
+
+            Log.e("RESULT ER: " , res);
+
         } catch (Exception e) {
             Log.e("[GET REQUEST]", "Network exception");
         }
-        return content.toString();
+
+        return res;
 
 
     }
 
-    private int getUsers()  {
+    private void getUsers() {
 
+        String users = HTTPGet("/users");
+        //String users = testmethod();
 
-        Log.e("GETUSEEERES " , "IS RUNNING");
-
-        String users = HTTPGet(serverName + "/users");
+        ArrayList<User> userlist = new ArrayList<User>();
 
         try {
+
             JSONObject reader = new JSONObject(users);
+            JSONArray userarray = (JSONArray) reader.get("users");
+
+            int len = userarray.length();
+            for(int i = 0; i < len; i++) {
+
+                JSONObject tempobject = (JSONObject) userarray.get(i);
+
+                User user = converJSONUserToUser(tempobject);
+
+                userlist.add(user);
+
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
+            connectFail("The server did nor return the right result. Check your internet connection...");
+            return;
         }
 
-        return 0;
+        ((DataHolderApplication)getApplication()).setAllUsers(userlist);
+
+
+        Bundle bundle = new Bundle();
+        bundle.putString("RESPONSE_TYPE", action);
+
+        mainActivityReciever.send(1, bundle);
+
+    }
+
+    private User converJSONUserToUser(JSONObject source) throws JSONException {
+
+
+        String name = source.getString("name");
+        String email = source.getString("email");
+        String date = source.getString("date");
+        String ip = source.getString("ip");
+        Integer id = Integer.parseInt(source.getString("id"));
+        String lastlocation = source.getString("lastlocation");
+
+        Log.w("LOKATIONSTRENG ER: " , lastlocation);
+
+
+        LatLng latlnglocation = convertStringToLatLng(lastlocation);
+
+        return new User(name, email, date, ip, id, latlnglocation);
+
+
+
+    }
+
+
+    private LatLng convertStringToLatLng(String source){
+
+        String[] data = source.split("@");
+
+
+        Log.e("DATA ARRAY: " , data.toString());
+        Log.e("DATA SOURCE: " , source);
+
+        if(data.length == 2 ){
+
+            return new LatLng(Double.parseDouble(data[0]) , Double.parseDouble(data[1]));
+
+
+        } else {
+
+            Log.w("ServerHandler siger" , "Location strengen ser ikke ud til at være en lokation");
+            return null;
+
+
+        }
+    }
+
+
+
+    private String testmethod(){
+
+        return "{\"users\": [{\"name\":\"Big King XXL\",\"email\":null,\"date\":\"2014-10-06 17:06:38\",\"ip\":\"192.38.33.1\",\"lastlocation\":\"lastlocation\"},{\"name\":\"BigMac\",\"email\":null,\"date\":\"2014-10-06 16:54:15\",\"ip\":\"192.38.33.1\",\"lastlocation\":\"lastlocation\"},{\"name\":\"bjr\",\"email\":null,\"date\":\"2014-10-06 12:47:15\",\"ip\":\"80.62.116.208\",\"lastlocation\":\"lastlocation\"},{\"name\":\"Burger\",\"email\":null,\"date\":\"2014-10-06 16:50:30\",\"ip\":\"192.38.33.1\",\"lastlocation\":\"lastlocation\"},{\"name\":\"chbnj\",\"email\":null,\"date\":\"2014-10-04 16:21:12\",\"ip\":\"94.191.185.74\",\"lastlocation\":\"lastlocation\"},{\"name\":\"CheeseWobber\",\"email\":null,\"date\":\"2014-10-06 17:01:42\",\"ip\":\"192.38.33.1\",\"lastlocation\":\"lastlocation\"},{\"name\":\"ChickenSalsa\",\"email\":null,\"date\":\"2014-10-06 17:52:14\",\"ip\":\"192.38.33.1\",\"lastlocation\":\"lastlocation\"},{\"name\":\"ChickenSalsa\",\"email\":null,\"date\":\"2014-10-06 17:12:01\",\"ip\":\"192.38.33.1\",\"lastlocation\":\"lastlocation\"},{\"name\":\"dwd\",\"email\":\"ddd\",\"date\":\"2014-10-03 10:59:37\",\"ip\":\"192.38.33.16\",\"lastlocation\":\"lastlocation\"}]}";
 
     }
 
