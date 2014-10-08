@@ -1,9 +1,12 @@
 package com.graungaard.pvc_app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
 public class CallActivity extends Activity {
@@ -32,5 +35,10 @@ public class CallActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void buttonOnClick(View v) {
+        Button button = (Button) v;
+        startActivity(new Intent(this, MafiaMessageActivity.class));
     }
 }

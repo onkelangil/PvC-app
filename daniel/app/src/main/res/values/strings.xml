@@ -10,5 +10,7 @@
     <string name="title_activity_start_node">StartNodeActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_call">CallActivity</string>
+    <string name="title_activity_mafia_message">MafiaMessageActivity</string>
+    <string name="title_activity_mission_info">MissionInfoActivity</string>
 
 </resources>

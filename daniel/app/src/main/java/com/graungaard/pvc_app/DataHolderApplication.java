@@ -10,6 +10,8 @@ import com.google.android.gms.maps.model.LatLng;
 public class DataHolderApplication extends Application {
     private int userID;
 
+    private LatLng currentLocation;
+
     public LatLng getCurrentLocation() {
         return currentLocation;
     }
@@ -17,9 +19,6 @@ public class DataHolderApplication extends Application {
     protected void setCurrentLocation(LatLng currentLocation) {
         this.currentLocation = currentLocation;
     }
-
-    private LatLng currentLocation;
-
 
     public int getUserID() {
         return userID;
