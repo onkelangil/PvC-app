@@ -4,27 +4,21 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 
-public class MissionInfoActivity extends Activity {
+public class Test extends AbstractNode {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mission_info);
+        setContentView(R.layout.activity_test);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.mission_info, menu);
+        getMenuInflater().inflate(R.menu.test, menu);
         return true;
     }
 
@@ -38,10 +32,5 @@ public class MissionInfoActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void buttonOnClick(View v) {
-        Button button = (Button) v;
-        startActivity(new Intent(this, GpsActivity.class));
     }
 }

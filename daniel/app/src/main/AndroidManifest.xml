@@ -76,6 +76,10 @@
             android:name=".PoliceMessageActivity"
             android:label="@string/title_activity_police_message" >
         </activity>
+        <activity
+            android:name=".Test"
+            android:label="@string/title_activity_test" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

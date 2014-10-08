@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 public class SawActivity extends Activity {
 
     ProgressBar pb;
-    ToolHandler th = new ToolHandler();
+    ToolHandler th;
     int startprogress = 0;
     int progressSaw = th.getProgressSaw();
 
@@ -18,6 +18,9 @@ public class SawActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saw);
+
+        //TODO: INSERT SESSION MANAGER
+        //th = new ToolHandler();
         pb = (ProgressBar) findViewById(R.id.progressBar1);
         new Thread(new Runnable(){
             @Override
@@ -25,7 +28,7 @@ public class SawActivity extends Activity {
 
 
             }
-        }
+        });
     }
 
 

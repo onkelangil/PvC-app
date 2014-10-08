@@ -47,7 +47,7 @@ public class StartNodeActivity extends Activity {
         Button button = (Button) v;
         MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.drawable.ringetone);
         mp.start();
-        startActivity(new Intent(this, CallActivity.class));
+        startActivity(new Intent(this, Test.class));
         //Log.e("LatLng " GameNode.getLatLng(1));
 
     }
