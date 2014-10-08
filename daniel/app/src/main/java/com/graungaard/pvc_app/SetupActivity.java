@@ -2,13 +2,16 @@ package com.graungaard.pvc_app;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.MediaController;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -37,8 +40,6 @@ public class SetupActivity extends Activity {
 
         setupAppState();
         Log.d("ONSTART KØRER" , "YUBIIII");
-
-
     }
 
 

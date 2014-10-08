@@ -2,9 +2,9 @@
 <resources>
 
     <string name="app_name">PvC-app</string>
-    <string name="edit_message">Brugernavn!?!</string>
+    <string name="edit_message">Indtast brugernavn</string>
     <string name="action_settings">Settings</string>
-    <string name="button_send">Send dette</string>
+    <string name="button_send">Start spil</string>
     <string name="title_activity_display_message">Blah!</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_start_node">StartNodeActivity</string>
