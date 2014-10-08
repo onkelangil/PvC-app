@@ -13,7 +13,20 @@ public class DataHolderApplication extends Application {
     private int userID;
     private LatLng currentLocation;
     private ArrayList<User> allUsers;
+    private User partner;
 
+    public DataHolderApplication() {
+        this.allUsers = new ArrayList<User>();
+    }
+
+
+    public User getPartner() {
+        return partner;
+    }
+
+    public void setPartner(User partner) {
+        this.partner = partner;
+    }
 
     public ArrayList<User> getAllUsers() {
         return allUsers;

@@ -96,9 +96,11 @@ public class ServerHandler extends IntentService {
 
         //Makes namevaluepairs for posting to server
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-        pairs.add(new BasicNameValuePair("lastlocation", latitude + ";" + longitude));
+        pairs.add(new BasicNameValuePair("lastlocation", latitude + "@" + longitude));
         pairs.add(new BasicNameValuePair("_METHOD", "PUT"));
 
+
+        Log.d("Poster lokationen til server: ", latitude + "@" + longitude);
 
         String res = HTTPPost(pairs, "/users/location/" + userid);
 
@@ -125,7 +127,7 @@ public class ServerHandler extends IntentService {
         //Makes namevaluepairs for posting to server
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
         pairs.add(new BasicNameValuePair("name", username));
-        pairs.add(new BasicNameValuePair("email", "ØØØØHHH EMAIL?!"));
+        pairs.add(new BasicNameValuePair("email", "user@user.dk"));
         pairs.add(new BasicNameValuePair("_METHOD", "POST"));
 
         String res = HTTPPost(pairs, "/users");
@@ -271,8 +273,10 @@ public class ServerHandler extends IntentService {
         String email = source.getString("email");
         String date = source.getString("date");
         String ip = source.getString("ip");
-        Integer id = null;
+        Integer id = Integer.parseInt(source.getString("id"));
         String lastlocation = source.getString("lastlocation");
+
+        Log.w("LOKATIONSTRENG ER: " , lastlocation);
 
 
         LatLng latlnglocation = convertStringToLatLng(lastlocation);
@@ -286,15 +290,20 @@ public class ServerHandler extends IntentService {
 
     private LatLng convertStringToLatLng(String source){
 
-        String[] data = source.split(";");
+        String[] data = source.split("@");
+
+
+        Log.e("DATA ARRAY: " , data.toString());
+        Log.e("DATA SOURCE: " , source);
 
         if(data.length == 2 ){
 
             return new LatLng(Double.parseDouble(data[0]) , Double.parseDouble(data[1]));
 
+
         } else {
 
-            Log.e("ServerHandler siger" , "Location strengen ser ikke ud til at være en lokation");
+            Log.w("ServerHandler siger" , "Location strengen ser ikke ud til at være en lokation");
             return null;
 
 

@@ -14,6 +14,7 @@ public class User {
     private Integer id;
     private LatLng lasttLocation;
 
+
     public User(String name, String email, String date, String ip, Integer id, LatLng lasttLocation) {
         this.name = name;
         this.email = email;

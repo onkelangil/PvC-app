@@ -150,6 +150,9 @@ public class MapsActivity extends FragmentActivity implements
         if (locationClient != null && locationClient.isConnected()) {
 
             Location location = locationClient.getLastLocation();
+
+            if(location == null) return;
+
             LatLng latlonlocation = convertLocationToLatLon(location);
 
             ((DataHolderApplication)getApplication()).setCurrentLocation(latlonlocation);
@@ -179,6 +182,7 @@ public class MapsActivity extends FragmentActivity implements
 
         if(updateCounter == 9){
 
+            Log.d("I RUUUN" , "AN I START SERVERHANDLER");
             addLocationConnect();
             updateCounter = 0;
 
