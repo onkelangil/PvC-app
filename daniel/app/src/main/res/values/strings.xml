@@ -18,5 +18,6 @@
     <string name="title_activity_axe">AxeActivity</string>
     <string name="title_activity_success">SuccessActivity</string>
     <string name="title_activity_police">PoliceActivity</string>
+    <string name="title_activity_police_message">PoliceMessageActivity</string>
 
 </resources>
