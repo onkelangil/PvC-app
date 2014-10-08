@@ -69,6 +69,10 @@
             android:label="@string/title_activity_success" >
         </activity>
         <activity
+            android:name=".SetupActivity"
+            android:label="@string/title_activity_setup" >
+        </activity>
+        <activity
             android:name=".PoliceActivity"
             android:label="@string/title_activity_police" >
         </activity>
@@ -79,6 +83,7 @@
         <activity
             android:name=".Test"
             android:label="@string/title_activity_test" >
+>>>>>>> origin/master
         </activity>
     </application>
 

@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -68,6 +70,8 @@ public class MapsActivity extends FragmentActivity implements
         Log.w("Hello i'm a location client and my name is: " , locationClient + "");
 
         serverHandlerIntent = getIntent().getParcelableExtra("SERVERHANDLER_INTENT");
+
+
 
     }
 
@@ -289,6 +293,17 @@ public class MapsActivity extends FragmentActivity implements
 
 
     }
+
+    public void findPartner(View v){
+        Button button = (Button) v;
+
+        Intent intent = new Intent(this, SetupActivity.class);
+        intent.putExtra("mainReciever", serverReciever);
+
+        startActivity(intent);
+
+    }
+
 
     /*
          * Called by Location Services if the connection to the

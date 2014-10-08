@@ -14,11 +14,19 @@ public class DataHolderApplication extends Application {
     private LatLng currentLocation;
     private ArrayList<User> allUsers;
     private User partner;
+    private boolean hasPartner = false;
+
+    public boolean isHasPartner() {
+        return hasPartner;
+    }
+
+    public void setHasPartner(boolean hasPartner) {
+        this.hasPartner = hasPartner;
+    }
 
     public DataHolderApplication() {
         this.allUsers = new ArrayList<User>();
     }
-
 
     public User getPartner() {
         return partner;
@@ -48,13 +56,9 @@ public class DataHolderApplication extends Application {
         return userID;
     }
 
-    protected  void setUserID(int userID) {
+    protected void setUserID(int userID) {
         this.userID = userID;
     }
-
-
-
-
 
 
 }
