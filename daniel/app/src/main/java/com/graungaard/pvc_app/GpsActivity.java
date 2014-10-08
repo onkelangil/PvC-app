@@ -9,19 +9,19 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class CallActivity extends Activity {
+public class GpsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_call);
+        setContentView(R.layout.activity_gps);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.call, menu);
+        getMenuInflater().inflate(R.menu.gps, menu);
         return true;
     }
 
@@ -37,8 +37,8 @@ public class CallActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void buttonOnClick(View v){
+    public void buttonOnClick(View v) {
         Button button = (Button) v;
-        startActivity(new Intent(this, MafiaMessageActivity.class));
+        startActivity(new Intent(this, WeaponActivity.class));
     }
 }

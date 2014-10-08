@@ -44,8 +44,8 @@ public class StartNodeActivity extends Activity {
 
     public void buttonOnClick(View v){
         Button button = (Button) v;
-        //MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.drawable.ringetone);
-       // mp.start();
+        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.drawable.ringetone);
+        mp.start();
         startActivity(new Intent(this, CallActivity.class));
     }
 

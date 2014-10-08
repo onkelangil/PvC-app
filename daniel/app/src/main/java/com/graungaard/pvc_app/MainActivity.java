@@ -3,6 +3,7 @@ package com.graungaard.pvc_app;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -123,9 +124,15 @@ public class MainActivity extends Activity {
         startMap();
 
 
+<<<<<<< HEAD
     }
 
     private void findPartner() throws NullPointerException {
+=======
+        SensorManager sensormanager = ((SensorManager)getSystemService(SENSOR_SERVICE));
+
+        ToolHandler toolHandler= new ToolHandler(sensormanager);
+>>>>>>> origin/master
 
         ArrayList<User> allUsers = ((DataHolderApplication)getApplication()).getAllUsers();
 

@@ -7,21 +7,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 
-public class CallActivity extends Activity {
+public class WeaponActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_call);
+        setContentView(R.layout.activity_weapon);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.call, menu);
+        getMenuInflater().inflate(R.menu.weapon, menu);
         return true;
     }
 
@@ -36,9 +37,12 @@ public class CallActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public void buttonOnClick(View v){
-        Button button = (Button) v;
-        startActivity(new Intent(this, MafiaMessageActivity.class));
+    public void buttonOnClick1(View v) {
+        ImageButton button = (ImageButton) v;
+        startActivity(new Intent(this, SawActivity.class));
+    }
+    public void buttonOnClick2(View v) {
+        ImageButton button = (ImageButton) v;
+        startActivity(new Intent(this, AxeActivity.class));
     }
 }

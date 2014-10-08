@@ -1,27 +1,38 @@
 package com.graungaard.pvc_app;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.widget.ProgressBar;
 
 
-public class CallActivity extends Activity {
+public class SawActivity extends Activity {
+
+    ProgressBar pb;
+    ToolHandler th = new ToolHandler();
+    int startprogress = 0;
+    int progressSaw = th.getProgressSaw();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_call);
+        setContentView(R.layout.activity_saw);
+        pb = (ProgressBar) findViewById(R.id.progressBar1);
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                if(start)
+
+            }
+        }
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.call, menu);
+        getMenuInflater().inflate(R.menu.saw, menu);
         return true;
     }
 
@@ -37,8 +48,5 @@ public class CallActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void buttonOnClick(View v){
-        Button button = (Button) v;
-        startActivity(new Intent(this, MafiaMessageActivity.class));
-    }
+
 }
