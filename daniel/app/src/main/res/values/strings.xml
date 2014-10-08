@@ -16,5 +16,7 @@
     <string name="title_activity_weapon">WeaponActivity</string>
     <string name="title_activity_saw">SawActivity</string>
     <string name="title_activity_axe">AxeActivity</string>
+    <string name="title_activity_success">SuccessActivity</string>
+    <string name="title_activity_police">PoliceActivity</string>
 
 </resources>

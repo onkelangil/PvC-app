@@ -68,6 +68,14 @@
             android:name=".AxeActivity"
             android:label="@string/title_activity_axe" >
         </activity>
+        <activity
+            android:name=".SuccessActivity"
+            android:label="@string/title_activity_success" >
+        </activity>
+        <activity
+            android:name=".PoliceActivity"
+            android:label="@string/title_activity_police" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

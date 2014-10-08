@@ -4,35 +4,21 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ProgressBar;
 
 
-public class SawActivity extends Activity {
-
-    ProgressBar pb;
-    ToolHandler th = new ToolHandler();
-    int startprogress = 0;
-    int progressSaw = th.getProgressSaw();
+public class PoliceActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saw);
-        pb = (ProgressBar) findViewById(R.id.progressBar1);
-        new Thread(new Runnable(){
-            @Override
-            public void run() {
-
-
-            }
-        }
+        setContentView(R.layout.activity_police);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.saw, menu);
+        getMenuInflater().inflate(R.menu.police, menu);
         return true;
     }
 
@@ -47,6 +33,4 @@ public class SawActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }
