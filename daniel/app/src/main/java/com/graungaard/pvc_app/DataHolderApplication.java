@@ -36,9 +36,6 @@ public class DataHolderApplication extends Application {
         this.allUsers = allUsers;
     }
 
-
-    private LatLng currentLocation;
-
     public LatLng getCurrentLocation() {
         return currentLocation;
     }
