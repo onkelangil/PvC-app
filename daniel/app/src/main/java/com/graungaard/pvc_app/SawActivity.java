@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.widget.ProgressBar;
 
 
-public class SawActivity extends Activity {
+public class SawActivity extends AbstractNode {
 
     ProgressBar pb;
     ToolHandler th;

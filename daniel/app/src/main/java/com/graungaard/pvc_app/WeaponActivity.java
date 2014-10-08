@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 
-public class WeaponActivity extends Activity {
+public class WeaponActivity extends AbstractNode {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

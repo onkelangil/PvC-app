@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class PoliceMessageActivity extends Activity {
+public class PoliceMessageActivity extends AbstractNode {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

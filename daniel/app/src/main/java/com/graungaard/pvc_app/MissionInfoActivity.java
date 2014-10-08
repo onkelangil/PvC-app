@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class MissionInfoActivity extends Activity {
+public class MissionInfoActivity extends AbstractNode {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

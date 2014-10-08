@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class StartNodeActivity extends Activity {
+public class StartNodeActivity extends AbstractNode {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class GpsActivity extends Activity {
+public class GpsActivity extends AbstractNode {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

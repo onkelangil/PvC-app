@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class PoliceActivity extends Activity {
+public class PoliceActivity extends AbstractNode {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
