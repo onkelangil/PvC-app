@@ -20,13 +20,20 @@ public class ToolHandler implements SensorEventListener {
     private float deltaX;
     private float deltaY;
     private float deltaZ;
-    private int progressSaw =0;
-    private int progressØske=0;
+    private int progress =0;
+    private String weapon;
 
+
+    public String getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(String weapon) {
+        this.weapon = weapon;
+    }
 
 
     public ToolHandler(SensorManager sensormanager){
-        //svarer til oncreate
 
         mInitialized = false;
 
@@ -41,97 +48,123 @@ public class ToolHandler implements SensorEventListener {
     }
 
     public void pause(){
-        //Svare til pause
         mSensorManager.unregisterListener(this);
     }
 
     public void stop(){
-        //SVarer til overrided Stopmetoden
 
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
+    }
+
+    private void changeX(SensorEvent event) {
+
+        long curTimeX = System.currentTimeMillis();
+
+        float x = event.values[0];
+
+        float mLastX = 0;
+
+
+        long lastUpdateX = 0;
+
+        //Her checker den x og updatere
+        if ((curTimeX - lastUpdateX) > 300) {
+            lastUpdateX = curTimeX;
+            float movementX = Math.abs(mLastX - x);
+            //MovementX kan godt bliver sat op. 1.0 er ikke vildt meget
+            if (movementX > 3.0) {
+                progress++;
+            }
+            if (progress == 100) {
+
+                Log.i("sawSucces", "Succesfull");
+            }
+            mLastX = x;
+
+            if (!mInitialized) {
+
+                mLastX = x;
+
+                mInitialized = true;
+
+
+            } else {
+
+
+                this.deltaX = Math.abs(mLastX - x);
+
+
+                if (deltaX < NOISE) deltaX = (float) 0.0;
+
+
+            }
+
+
+        }
+
+    }
+
+    private void changeY(SensorEvent event) {
+
+        long curTimeY = System.currentTimeMillis();
+
+        float y = event.values[1];
+
+        float mLastY = 0;
+
+        long lastUpdateY = 0;
+
+        //Her checker den y og updatere
+        if ((curTimeY - lastUpdateY) > 300) {
+            lastUpdateY = curTimeY;
+            float movementY = Math.abs(mLastY - y);
+            //MovementX kan godt bliver sat op. 1.0 er ikke vildt meget
+            if (movementY > 3.0) {
+                progress++;
+            }
+            if (progress == 100) {
+
+                Log.i("AxesSucces", "Succesfull");
+            }
+            mLastY = y;
+
+            if (!mInitialized) {
+
+                mLastY = y;
+
+                mInitialized = true;
+
+
+            } else {
+
+
+                this.deltaY = Math.abs(mLastY - y);
+
+
+                if (deltaY < NOISE) deltaY = (float) 0.0;
+
+
+            }
+
+
+        }
 
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        long curTimeX = System.currentTimeMillis();
-        long curTimeY = System.currentTimeMillis();
+            if(weapon.equals("ax")){
 
-        float x = event.values[0];
+                changeY(event);
 
-        float y = event.values[1];
+            } else if (weapon.equals("saw")) {
 
-        float z = event.values[2];
+                changeX(event);
 
-        float mLastX=0;
-        float mLastY=0;
-        float mLastZ =0;
-
-        long lastUpdateX=0;
-        long lastUpdateY=0;
-
-
-        //Her checker den x og updatere
-        if((curTimeX - lastUpdateX)>300){
-            lastUpdateX = curTimeX;
-            float movementX = Math.abs(mLastX - x);
-            //MovementX kan godt bliver sat op. 1.0 er ikke vildt meget
-            if(movementX > 3.0){
-                progressSaw++;
             }
-            if (progressSaw ==100){
 
-                Log.i("sawSucces","Succesfull");
-            }
-            mLastX =x;
-        }
-
-
-        //Her checker den y og updatere
-        if((curTimeY - lastUpdateY)>300){
-            lastUpdateY = curTimeY;
-            float movementY = Math.abs(mLastY - y);
-            //MovementX kan godt bliver sat op. 1.0 er ikke vildt meget
-            if(movementY > 3.0){
-                progressØske++;
-            }
-            if (progressØske ==100){
-
-                Log.i("AxesSucces","Succesfull");
-            }
-            mLastY =y;
-        }
-
-
-
-        if (!mInitialized) {
-
-
-            mLastX =x;
-
-            mLastY = y;
-
-            mLastZ = z;
-            mInitialized = true;
-
-        }else {
-
-
-            this.deltaX = Math.abs(mLastX - x);
-
-            this.deltaY = Math.abs(mLastY - y);
-
-            this.deltaZ = Math.abs(mLastZ - z);
-
-            if (deltaX < NOISE) deltaX = (float) 0.0;
-
-            if (deltaY < NOISE) deltaY = (float) 0.0;
-
-            if (deltaZ < NOISE) deltaZ = (float) 0.0;
-
-        }
 
 
     }
@@ -141,8 +174,5 @@ public class ToolHandler implements SensorEventListener {
 
     }
 
-    public int getProgressSaw() {
-        return progressSaw;
-    }
-    public  int getProgressØske(){  return progressØske;}
+    public  int getProgress(){  return progress;}
 }

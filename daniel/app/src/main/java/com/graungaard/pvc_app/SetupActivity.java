@@ -246,7 +246,8 @@ public class SetupActivity extends Activity {
      * @param name name of the partner
      */
     private void userIsSet(String name) {
-        Toast.makeText(this, "Du er på hold med " + name + " og det er ret awesome", Toast.LENGTH_SHORT);
+        Toast.makeText(this, "Du er på hold med " + name + " og det er ret awesome", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
 
