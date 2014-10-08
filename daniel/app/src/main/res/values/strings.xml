@@ -20,5 +20,8 @@
     <string name="title_activity_police">PoliceActivity</string>
     <string name="title_activity_police_message">PoliceMessageActivity</string>
     <string name="title_activity_test">Test</string>
+    <string name="title_activity_valg">ValgActivity</string>
+    <string name="title_activity_police_succes">PoliceSuccesActivity</string>
+    <string name="title_activity_mafia_succes">MafiaSuccesActivity</string>
 
 </resources>
