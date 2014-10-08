@@ -16,8 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
     Button btnShowLocation;
@@ -28,39 +31,189 @@ public class MainActivity extends Activity {
     private Handler activityHandler = new Handler();
 
     public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    private boolean hasPartner;
+    private Handler findPartnerHandler;
 
 
-    public void startGame(View view){
+    public void startGame(View view) {
 
-        startMap();
 
         setupAppState();
 
-        Intent intent = new Intent(this, StartNodeActivity.class);
-        startActivity(intent);
 
+        // SensorManager sensormanager = ((SensorManager)getSystemService(SENSOR_SERVICE));
 
-        SensorManager sensormanager = ((SensorManager)getSystemService(SENSOR_SERVICE));
-
-        ToolHandler toolHandler= new ToolHandler(sensormanager);
-
+        // ToolHandler toolHandler= new ToolHandler(sensormanager)
 
 
     }
 
+    /**
+     * Responsible for setting te app state such as fising a partner before starting the game
+     */
     private void setupAppState() {
 
+        updateUserArrayList();
+
+        Log.d("I RUN", "AN I LOOK FOR PARTNER");
+
+        try {
+
+            Toast.makeText(this, "Leder efter Partner -- Stil dig samme sted som en anden mens han/hun logger ind", Toast.LENGTH_LONG);
+
+            startLookingForPartner();
+
+
+
+        } catch (NullPointerException e) {
+
+            Toast.makeText(this, "Henter Brugere...", Toast.LENGTH_LONG);
+
+
+        }
+
+
+        initiateGame();
+
+
+    }
+
+
+
+    Runnable mStatusChecker = new Runnable() {
+        @Override
+        public void run() throws NullPointerException {
+
+            if (!hasPartner) {
+                findPartnerHandler.postDelayed(mStatusChecker, 5000);
+
+                Log.w("Main Siger: ", "I Look for partner yes");
+
+                findPartner();
+
+
+            } else {
+                String name = ((DataHolderApplication)getApplication()).getPartner().getName();
+                Log.wtf("MAIN SIGER: ", "Just found my partner");
+                userIsSet(name);
+            }
+
+        }
+    };
+
+    private void userIsSet(String name) {
+        Toast.makeText(this, "Du er på hold med " + name + " og det er ret awesome", Toast.LENGTH_SHORT);
+    }
+
+    void startLookingForPartner() throws NullPointerException {
+        mStatusChecker.run();
+    }
+
+    void stopLookingForPartner() {
+        findPartnerHandler.removeCallbacks(mStatusChecker);
+    }
+
+    /**
+     * Responsible for starting the game
+     * called when user has partner and is ready
+     */
+    private void initiateGame() {
+
+        Intent intent = new Intent(this, StartNodeActivity.class);
+        startActivity(intent);
+        startMap();
+
+
+<<<<<<< HEAD
+    }
+
+    private void findPartner() throws NullPointerException {
+=======
+        SensorManager sensormanager = ((SensorManager)getSystemService(SENSOR_SERVICE));
+
+        ToolHandler toolHandler= new ToolHandler(sensormanager);
+>>>>>>> origin/master
+
+        ArrayList<User> allUsers = ((DataHolderApplication)getApplication()).getAllUsers();
+
+        for (User user : allUsers) {
+
+            boolean b = isUserPartner(user);
+
+        }
+
+
+    }
+
+    private boolean isUserPartner(User user) throws NullPointerException{
+
+        try {
+           // Log.d("USER: ", user.toString());
+
+
+
+            LatLng otherlocation = user.getLasttLocation();
+            LatLng mylocation = ((DataHolderApplication)getApplication()).getCurrentLocation();
+
+            int myid = ((DataHolderApplication)getApplication()).getUserID();
+
+
+            if (otherlocation == null){
+
+                Toast.makeText(this, "Leder efter brugere" , Toast.LENGTH_SHORT);
+                return false;
+
+            }
+
+
+            //Log.w("IS; ", mylocation.toString());
+            //Log.wtf("EQUAL TO; ", otherlocation.toString());
+
+            Double distance = new Double(10.0000);
+
+
+
+            //TODO: CHECK CONSTANT
+            if(((DataHolderApplication)getApplication()).getCurrentLocation() == null){
+
+                Log.d("SOMETHINGS NOT RIGHT" , "CURRENT");
+
+
+            }
+
+
+            if (compareCoordinates(otherlocation, mylocation, distance) && myid != user.getId()) {
+
+                ((DataHolderApplication) getApplication()).setPartner(user);
+
+                this.hasPartner = true;
+
+                return true;
+            }
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            Log.w("MAIN SIGER: ", "NO LOCATION POR FAVOR");
+        }
+
+        return false;
+
+    }
+
+    private void updateUserArrayList() {
+
         serverHandlerMainIntent.setAction("getUsers");
+
+        String dataForServerHandler = "Hej Hr serverHandler jeg er en ligegyldig streng..., Helt lieggyldig";
+        serverHandlerMainIntent.setData(Uri.parse(dataForServerHandler));
 
         //Send reciever to ServerHandler
         serverHandlerMainIntent.putExtra("mainReciever", serverReciever);
 
         this.startService(serverHandlerMainIntent);
 
-
-
-
     }
+
 
     public void startMap() {
 
@@ -85,6 +238,7 @@ public class MainActivity extends Activity {
 
     /**
      * Adds user to server
+     *
      * @param username
      */
     private void addUserToServer(String username) {
@@ -119,6 +273,8 @@ public class MainActivity extends Activity {
 
         serverHandlerMainIntent = new Intent(this, ServerHandler.class);
 
+        findPartnerHandler = new Handler();
+
     }
 
 
@@ -143,8 +299,42 @@ public class MainActivity extends Activity {
 
 
     /**
+     * Takes two latlon objects and a distance then in checks if the objects are within distance of each other.
+     */
+    public Boolean compareCoordinates(LatLng firstcoordinate, LatLng secondcoodinate, Double distance) throws NullPointerException {
+
+        Double longf = 00.000300;
+        Double langf = 00.000300;
+
+        if(firstcoordinate == null || secondcoodinate == null){
+
+            return false;
+        }
+
+        if (firstcoordinate.latitude <= secondcoodinate.latitude) {
+            longf = secondcoodinate.latitude - firstcoordinate.latitude;
+        } else if (firstcoordinate.latitude >= secondcoodinate.latitude) {
+            longf = firstcoordinate.latitude - secondcoodinate.latitude;
+        }
+
+        if (firstcoordinate.longitude <= secondcoodinate.longitude) {
+            langf = secondcoodinate.latitude - firstcoordinate.latitude;
+        } else if (firstcoordinate.longitude >= secondcoodinate.longitude) {
+            langf = firstcoordinate.latitude - secondcoodinate.latitude;
+        }
+
+        if (longf < distance && langf < distance) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
      * A placeholder fragment containing a simple view.
      */
+
     public static class PlaceholderFragment extends Fragment {
 
         public PlaceholderFragment() {
@@ -157,39 +347,12 @@ public class MainActivity extends Activity {
             return rootView;
         }
 
+
         /*
     * Called by Location Services when the request to connect the
     * client finishes successfully. At this point, you can
     * request the current location or start periodic updates
     */
-
-
-        /**
-         *Takes two latlon objects and a distance then in checks if the objects are within distance of each other.
-         */
-        public Boolean compareCoordinates(LatLng firstcoordinate, LatLng secondcoodinate, Double distance) {
-
-            Double longf = 00.000300;
-            Double langf = 00.000300;
-
-            if (firstcoordinate.latitude < secondcoodinate.latitude) {
-                longf = secondcoodinate.latitude - firstcoordinate.latitude;
-            }
-            if (firstcoordinate.latitude > secondcoodinate.latitude) {
-                longf = firstcoordinate.latitude - secondcoodinate.latitude;
-            }
-            if (firstcoordinate.longitude < secondcoodinate.longitude) {
-                langf = secondcoodinate.latitude - firstcoordinate.latitude;
-            }
-            if (firstcoordinate.longitude > secondcoodinate.longitude) {
-                langf = firstcoordinate.latitude - secondcoodinate.latitude;
-            }
-            if (longf < distance && langf < distance) {
-                return true;
-            } else {
-                return false;
-            }
-        }
 
 
     }
@@ -198,6 +361,7 @@ public class MainActivity extends Activity {
      * Resultreciever with reference to activities handler.
      * Makes it possible for serverhandler to parse data back
      */
+
     class ServerReciever extends ResultReceiver {
 
         public ServerReciever() {
@@ -224,7 +388,7 @@ public class MainActivity extends Activity {
 
                     int userid = resultData.getInt("USER_ID");
 
-                    ((DataHolderApplication)getApplication()).setUserID(userid);
+                    ((DataHolderApplication) getApplication()).setUserID(userid);
 
 
                 } else if (resultData.getString("RESPONSE_TYPE").equals("addLocation")) {
@@ -233,7 +397,17 @@ public class MainActivity extends Activity {
 
                     Log.w("Main Activity siger: ", "Status på LocationUpdate er: " + result);
 
+                } else if (resultData.getString("RESPONSE_TYPE").equals("getUsers")) {
+
+                    ArrayList<User> users = ((DataHolderApplication) getApplication()).getAllUsers();
+
+                    for (User u : users) {
+                        Log.w("User: ", u.toString());
+
+                    }
+
                 }
+
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
@@ -242,7 +416,6 @@ public class MainActivity extends Activity {
 
 
     }
-
 
 
 }
