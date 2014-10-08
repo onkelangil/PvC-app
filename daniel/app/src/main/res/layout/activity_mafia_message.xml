@@ -17,8 +17,14 @@
         android:text="Jeg er Don Hansen, du skylder mig rigtig mange penge. Jeg ved at du som studerende ikke har ikke har råd, men arbejd for mig, og din gæld vil blive betalt af."
         android:id="@+id/textView"
         android:background="#000000"
+<<<<<<< HEAD
+        android:textColor="#ffffffff"
+        android:textSize="25sp"
+        android:onClick="buttonOnClick"
+=======
         android:textColor="#ffffff"
         android:textSize="25sp"
+>>>>>>> origin/master
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true" />
@@ -31,8 +37,12 @@
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+<<<<<<< HEAD
+        android:textColorHint="#ffffff" />
+=======
         android:textColorHint="#ffffff"
         android:onClick="buttonOnClick"/>
+>>>>>>> origin/master
 
     <ImageView
         android:layout_width="wrap_content"
@@ -44,4 +54,8 @@
         android:src="@drawable/godfather" />
 
 
+<<<<<<< HEAD
 </RelativeLayout>
+=======
+</RelativeLayout>
+>>>>>>> origin/master

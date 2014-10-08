@@ -37,6 +37,8 @@ public class DataHolderApplication extends Application {
     }
 
 
+    private LatLng currentLocation;
+
     public LatLng getCurrentLocation() {
         return currentLocation;
     }

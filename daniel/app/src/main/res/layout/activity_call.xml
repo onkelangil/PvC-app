@@ -44,6 +44,7 @@
         android:id="@+id/button2"
         android:layout_alignTop="@+id/button"
         android:layout_alignEnd="@+id/imageView"
-        android:background="#FF0000"/>
+        android:background="#FF0000"
+        android:src="@drawable/godfather" />
 
 </RelativeLayout>

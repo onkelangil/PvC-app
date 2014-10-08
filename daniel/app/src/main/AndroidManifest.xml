@@ -49,10 +49,6 @@
             android:label="@string/title_activity_mafia_message" >
         </activity>
         <activity
-            android:name=".MissionInfoActivity"
-            android:label="@string/title_activity_mission_info" >
-        </activity>
-        <activity
             android:name=".GpsActivity"
             android:label="@string/title_activity_mission_info" >
         </activity>

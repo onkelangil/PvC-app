@@ -39,8 +39,15 @@ public class MafiaMessageActivity extends Activity {
 
     public void buttonOnClick(View v) {
         Button button = (Button) v;
+<<<<<<< HEAD
+        startActivity(new Intent(this, MafiaMessageActivity.class));
+
+
+}
+=======
         startActivity(new Intent(this, MissionInfoActivity.class));
 
 
     }
+>>>>>>> origin/master
 }
