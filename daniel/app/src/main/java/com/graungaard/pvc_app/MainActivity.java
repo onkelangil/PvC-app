@@ -124,7 +124,7 @@ public class MainActivity extends Activity {
         startMap();
 
 
-<<<<<<< HEAD
+
     }
 
     private void findPartner() throws NullPointerException {
