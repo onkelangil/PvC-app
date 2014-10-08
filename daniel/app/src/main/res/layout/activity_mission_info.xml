@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.graungaard.pvc_app.MafiaMessageActivity"
+    android:background="#000000"
+    android:id="@+id/HEJ">
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="230dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="En anden studerende ville ikke arbejde for mig, så han er nu ordnet. Jeg vil have dig til at partere liget så politiet ikke fatter mistanke."
+        android:id="@+id/textView"
+        android:background="#000000"
+        android:textColor="#ffffff"
+        android:textSize="25sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:text="GÅ TIL GPS"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="72dp"
+        android:src="@drawable/godfather" />
+
+
+</RelativeLayout>

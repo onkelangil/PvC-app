@@ -36,7 +36,8 @@
         android:layout_marginBottom="56dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="#40FF00"/>
+        android:background="#40FF00"
+        android:onClick="buttonOnClick"/>
 
     <Button
         android:layout_width="150dp"

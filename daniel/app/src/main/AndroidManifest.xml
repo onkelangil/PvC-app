@@ -44,6 +44,14 @@
             android:name=".CallActivity"
             android:label="@string/title_activity_call" >
         </activity>
+        <activity
+            android:name=".MafiaMessageActivity"
+            android:label="@string/title_activity_mafia_message" >
+        </activity>
+        <activity
+            android:name=".MissionInfoActivity"
+            android:label="@string/title_activity_mission_info" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
