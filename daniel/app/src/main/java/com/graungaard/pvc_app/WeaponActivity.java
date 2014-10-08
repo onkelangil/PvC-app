@@ -1,9 +1,13 @@
 package com.graungaard.pvc_app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 
 public class WeaponActivity extends Activity {
@@ -32,5 +36,13 @@ public class WeaponActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public void buttonOnClick1(View v) {
+        ImageButton button = (ImageButton) v;
+        startActivity(new Intent(this, SawActivity.class));
+    }
+    public void buttonOnClick2(View v) {
+        ImageButton button = (ImageButton) v;
+        startActivity(new Intent(this, AxeActivity.class));
     }
 }

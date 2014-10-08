@@ -22,11 +22,12 @@
     <Button
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:text="OK!"
+        android:text="Vælg våben"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="44dp"
+        android:onClick="buttonOnClick"
         />
 
     <ImageView

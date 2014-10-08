@@ -144,7 +144,5 @@ public class ToolHandler implements SensorEventListener {
     public int getProgressSaw() {
         return progressSaw;
     }
-    public  int getProgressØske(){
-        return progressØske;
-    }
+    public  int getProgressØske(){  return progressØske;}
 }
