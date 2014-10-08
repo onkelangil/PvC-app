@@ -122,17 +122,13 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this, StartNodeActivity.class);
         startActivity(intent);
         startMap();
-
-
-<<<<<<< HEAD
     }
 
     private void findPartner() throws NullPointerException {
-=======
+
         SensorManager sensormanager = ((SensorManager)getSystemService(SENSOR_SERVICE));
 
         ToolHandler toolHandler= new ToolHandler(sensormanager);
->>>>>>> origin/master
 
         ArrayList<User> allUsers = ((DataHolderApplication)getApplication()).getAllUsers();
 

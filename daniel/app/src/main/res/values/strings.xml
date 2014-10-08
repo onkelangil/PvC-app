@@ -19,5 +19,6 @@
     <string name="title_activity_success">SuccessActivity</string>
     <string name="title_activity_police">PoliceActivity</string>
     <string name="title_activity_police_message">PoliceMessageActivity</string>
+    <string name="title_activity_test">Test</string>
 
 </resources>
