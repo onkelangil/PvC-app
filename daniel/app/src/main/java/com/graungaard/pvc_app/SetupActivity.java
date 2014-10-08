@@ -1,8 +1,10 @@
 package com.graungaard.pvc_app;
 
 import android.app.Activity;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,10 +17,28 @@ import java.util.ArrayList;
 
 public class SetupActivity extends Activity {
 
+    private DataHolderApplication dataHolderApplication;
+    private Handler findPartnerHandler;
+    private Intent serverHandlerMainIntent;
+    private ResultReceiver serverReciever;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
+
+        dataHolderApplication = ((DataHolderApplication)getApplication());
+
+        findPartnerHandler = new Handler();
+
+        serverHandlerMainIntent = new Intent(this, ServerHandler.class);
+
+        serverReciever = this.getIntent().getParcelableExtra("mainReciever");
+
+        setupAppState();
+        Log.d("ONSTART KØRER" , "YUBIIII");
+
+
     }
 
 
@@ -41,18 +61,18 @@ public class SetupActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+
     /**
      * Responsible for setting te app state such as fising a partner before starting the game
      */
     private void setupAppState() {
 
-        updateUserArrayList();
-
         Log.d("I RUN", "AN I LOOK FOR PARTNER");
 
-        try {
 
-            Toast.makeText(this, "Leder efter Partner -- Stil dig samme sted som en anden mens han/hun logger ind", Toast.LENGTH_LONG);
+        Toast.makeText(this, "Leder efter Partner -- Stil dig samme sted som en anden mens han/hun logger ind", Toast.LENGTH_LONG).show();
+
+        try {
 
             startLookingForPartner();
 
@@ -60,14 +80,15 @@ public class SetupActivity extends Activity {
 
         } catch (NullPointerException e) {
 
-            Toast.makeText(this, "Henter Brugere...", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Henter Brugere...", Toast.LENGTH_LONG).show();
 
 
         }
 
 
         //TODO: EXIT TO MAPS
-        initiateGame();
+        //finish();
+        //initiateGame();
 
 
     }
@@ -79,7 +100,12 @@ public class SetupActivity extends Activity {
         @Override
         public void run() throws NullPointerException {
 
-            if (!hasPartner) {
+            Log.w("I RUNNNENNNENENNENENEN" , "YES IS DUE");
+
+            boolean haspartner = dataHolderApplication.isHasPartner();
+
+
+            if (!haspartner) {
                 findPartnerHandler.postDelayed(mStatusChecker, 5000);
 
                 Log.w("Main Siger: ", "I Look for partner yes");
@@ -99,7 +125,10 @@ public class SetupActivity extends Activity {
 
 
     void startLookingForPartner() throws NullPointerException {
+        Log.w("FEDEPIK" , "c");
+
         mStatusChecker.run();
+
     }
 
     void stopLookingForPartner() {
@@ -160,7 +189,7 @@ public class SetupActivity extends Activity {
 
                 ((DataHolderApplication) getApplication()).setPartner(user);
 
-                this.hasPartner = true;
+                dataHolderApplication.setHasPartner(true);
 
                 return true;
             }
@@ -175,17 +204,38 @@ public class SetupActivity extends Activity {
     }
 
 
-    private void updateUserArrayList() {
 
-        serverHandlerMainIntent.setAction("getUsers");
 
-        String dataForServerHandler = "Hej Hr serverHandler jeg er en ligegyldig streng..., Helt lieggyldig";
-        serverHandlerMainIntent.setData(Uri.parse(dataForServerHandler));
+    /**
+     * Takes two latlon objects and a distance then in checks if the objects are within distance of each other.
+     */
+    public Boolean compareCoordinates(LatLng firstcoordinate, LatLng secondcoodinate, Double distance) throws NullPointerException {
 
-        //Send reciever to ServerHandler
-        serverHandlerMainIntent.putExtra("mainReciever", serverReciever);
+        Double longf = 00.000300;
+        Double langf = 00.000300;
 
-        this.startService(serverHandlerMainIntent);
+        if(firstcoordinate == null || secondcoodinate == null){
+
+            return false;
+        }
+
+        if (firstcoordinate.latitude <= secondcoodinate.latitude) {
+            longf = secondcoodinate.latitude - firstcoordinate.latitude;
+        } else if (firstcoordinate.latitude >= secondcoodinate.latitude) {
+            longf = firstcoordinate.latitude - secondcoodinate.latitude;
+        }
+
+        if (firstcoordinate.longitude <= secondcoodinate.longitude) {
+            langf = secondcoodinate.latitude - firstcoordinate.latitude;
+        } else if (firstcoordinate.longitude >= secondcoodinate.longitude) {
+            langf = firstcoordinate.latitude - secondcoodinate.latitude;
+        }
+
+        if (longf < distance && langf < distance) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 

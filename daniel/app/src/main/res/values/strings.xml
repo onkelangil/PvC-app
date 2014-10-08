@@ -17,5 +17,10 @@
     <string name="title_activity_saw">SawActivity</string>
     <string name="title_activity_axe">AxeActivity</string>
     <string name="title_activity_setup">SetupActivity</string>
+    <string name="title_activity_success">SuccessActivity</string>
+    <string name="title_activity_police">PoliceActivity</string>
+    <string name="title_activity_police_message">PoliceMessageActivity</string>
+    <string name="title_activity_test">Test</string>
+    <string name="map_button_text">Find Partner</string>
 
 </resources>

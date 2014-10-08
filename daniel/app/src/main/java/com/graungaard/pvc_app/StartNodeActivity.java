@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,7 +47,9 @@ public class StartNodeActivity extends Activity {
         Button button = (Button) v;
         MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.drawable.ringetone);
         mp.start();
-        startActivity(new Intent(this, CallActivity.class));
+        startActivity(new Intent(this, Test.class));
+        //Log.e("LatLng " GameNode.getLatLng(1));
+
     }
 
 }

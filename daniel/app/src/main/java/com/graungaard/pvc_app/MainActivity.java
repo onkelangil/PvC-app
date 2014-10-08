@@ -15,9 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
@@ -30,14 +27,13 @@ public class MainActivity extends Activity {
     private Handler activityHandler = new Handler();
 
     public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-    private boolean hasPartner;
-    private Handler findPartnerHandler;
 
 
     public void startGame(View view) {
 
+        updateUserArrayList();
 
-        setupAppState();
+        startSetupActivity();
 
 
         // SensorManager sensormanager = ((SensorManager)getSystemService(SENSOR_SERVICE));
@@ -45,6 +41,11 @@ public class MainActivity extends Activity {
         // ToolHandler toolHandler= new ToolHandler(sensormanager)
 
 
+    }
+
+    private void startSetupActivity() {
+
+        startMap();
     }
 
 
@@ -56,8 +57,21 @@ public class MainActivity extends Activity {
 
         Intent intent = new Intent(this, StartNodeActivity.class);
         startActivity(intent);
-        startMap();
 
+    }
+
+
+    private void updateUserArrayList() {
+
+        serverHandlerMainIntent.setAction("getUsers");
+
+        String dataForServerHandler = "Hej Hr serverHandler jeg er en ligegyldig streng..., Helt lieggyldig";
+        serverHandlerMainIntent.setData(Uri.parse(dataForServerHandler));
+
+        //Send reciever to ServerHandler
+        serverHandlerMainIntent.putExtra("mainReciever", serverReciever);
+
+        this.startService(serverHandlerMainIntent);
 
     }
 
@@ -121,8 +135,6 @@ public class MainActivity extends Activity {
 
         serverHandlerMainIntent = new Intent(this, ServerHandler.class);
 
-        findPartnerHandler = new Handler();
-
     }
 
 
@@ -146,38 +158,6 @@ public class MainActivity extends Activity {
     }
 
 
-    /**
-     * Takes two latlon objects and a distance then in checks if the objects are within distance of each other.
-     */
-    public Boolean compareCoordinates(LatLng firstcoordinate, LatLng secondcoodinate, Double distance) throws NullPointerException {
-
-        Double longf = 00.000300;
-        Double langf = 00.000300;
-
-        if(firstcoordinate == null || secondcoodinate == null){
-
-            return false;
-        }
-
-        if (firstcoordinate.latitude <= secondcoodinate.latitude) {
-            longf = secondcoodinate.latitude - firstcoordinate.latitude;
-        } else if (firstcoordinate.latitude >= secondcoodinate.latitude) {
-            longf = firstcoordinate.latitude - secondcoodinate.latitude;
-        }
-
-        if (firstcoordinate.longitude <= secondcoodinate.longitude) {
-            langf = secondcoodinate.latitude - firstcoordinate.latitude;
-        } else if (firstcoordinate.longitude >= secondcoodinate.longitude) {
-            langf = firstcoordinate.latitude - secondcoodinate.latitude;
-        }
-
-        if (longf < distance && langf < distance) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
 
     /**
      * A placeholder fragment containing a simple view.

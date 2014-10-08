@@ -37,6 +37,7 @@ public class CallActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+
     public void buttonOnClick(View v){
         Button button = (Button) v;
         startActivity(new Intent(this, MafiaMessageActivity.class));

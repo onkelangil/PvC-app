@@ -14,14 +14,14 @@
         android:layout_width="100dp"
         android:layout_height="230dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="En anden studerende ville ikke arbejde for mig, så han er nu ordnet. Så din opgave er at partere liget så politiet ikke fatter mistanke."
+        android:text="En anden studerende ville ikke arbejde for mig, så han er nu ordnet. Jeg vil have dig til at partere liget så politiet ikke fatter mistanke."
         android:id="@+id/textView"
         android:background="#000000"
         android:textColor="#ffffff"
         android:textSize="25sp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -31,8 +31,7 @@
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textColor="#ffffff"
-        android:onClick="buttonOnClick"/>
+        android:textColor="#ffffff" />
 
     <ImageView
         android:layout_width="wrap_content"

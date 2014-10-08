@@ -43,4 +43,5 @@ public class MafiaMessageActivity extends Activity {
 
 
     }
+
 }
