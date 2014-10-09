@@ -87,7 +87,18 @@
         <activity
             android:name=".Test"
             android:label="@string/title_activity_test" >
->>>>>>> origin/master
+        </activity>
+        <activity
+            android:name=".ValgActivity"
+            android:label="@string/title_activity_valg" >
+        </activity>
+        <activity
+            android:name=".PoliceSuccesActivity"
+            android:label="@string/title_activity_police_succes" >
+        </activity>
+        <activity
+            android:name=".MafiaSuccesActivity"
+            android:label="@string/title_activity_mafia_succes" >
         </activity>
     </application>
 

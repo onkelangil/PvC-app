@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class CallActivity extends Activity {
+public class CallActivity extends AbstractNode {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

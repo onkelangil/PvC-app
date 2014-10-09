@@ -1,29 +1,24 @@
 package com.graungaard.pvc_app;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 
-public class StartNodeActivity extends AbstractNode {
+public class MafiaSuccesActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_node);
+        setContentView(R.layout.activity_mafia_succes);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.start_node, menu);
+        getMenuInflater().inflate(R.menu.mafia_succes, menu);
         return true;
     }
 
@@ -38,18 +33,4 @@ public class StartNodeActivity extends AbstractNode {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    /**
-     * Knappen der trigger næste skærmbillede + lyd til ringetone
-     */
-
-    public void buttonOnClick(View v){
-        Button button = (Button) v;
-        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.drawable.ringetone);
-        mp.start();
-        startActivity(new Intent(this, Test.class));
-        //Log.e("LatLng " GameNode.getLatLng(1));
-
-    }
-
 }

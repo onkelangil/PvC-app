@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class SuccessActivity extends Activity {
+public class SuccessActivity extends AbstractNode {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
