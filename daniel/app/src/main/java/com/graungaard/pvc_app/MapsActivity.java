@@ -26,6 +26,9 @@ import com.google.maps.android.ui.IconGenerator;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MapsActivity extends FragmentActivity implements
         GooglePlayServicesClient.ConnectionCallbacks,
@@ -37,14 +40,18 @@ public class MapsActivity extends FragmentActivity implements
     private LocationClient locationClient;
 
     private Timer userLocationUpdateTimer;
+    private ScheduledExecutorService scheduler;
+
     private Intent serverHandlerIntent;
     private ResultReceiver serverReciever;
     private int updateCounter = 9;
 
+    private Intent controllerIntent;
+
     final Handler mapHandler = new Handler();
 
     /**
-     *called from Handler to get map updating userlocation
+     * called from Handler to get map updating userlocation
      */
     final Runnable runUpdateLocation = new Runnable() {
 
@@ -67,10 +74,15 @@ public class MapsActivity extends FragmentActivity implements
         locationClient = new LocationClient(this, this, this);
         locationClient.connect();
 
-        Log.w("Hello i'm a location client and my name is: " , locationClient + "");
+        Log.w("Hello i'm a location client and my name is: ", locationClient + "");
 
         serverHandlerIntent = getIntent().getParcelableExtra("SERVERHANDLER_INTENT");
 
+        controllerIntent = new Intent(this, GameController.class);
+
+        controllerIntent.putExtra("mainReciever", new RunReciever());
+
+        scheduler = Executors.newSingleThreadScheduledExecutor();
 
 
     }
@@ -80,7 +92,7 @@ public class MapsActivity extends FragmentActivity implements
         super.onStart();
 
 
-        if (((DataHolderApplication)getApplication()).getCurrentLocation() != null) {
+        if (((DataHolderApplication) getApplication()).getCurrentLocation() != null) {
 
             setLocation();
 
@@ -89,37 +101,37 @@ public class MapsActivity extends FragmentActivity implements
             Toast toast = Toast.makeText(getApplicationContext(), "Venter på placering...", Toast.LENGTH_SHORT);
             toast.show();
         }
-        }
+    }
 
-        @Override
-        protected void onStop () {
-            super.onStop();
-            locationClient.disconnect();
+    @Override
+    protected void onStop() {
+        super.onStop();
+        locationClient.disconnect();
 
-        }
+    }
 
 
-        @Override
-        protected void onResume () {
-            super.onResume();
-            setUpMapIfNeeded();
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpMapIfNeeded();
+    }
 
-        /**
-         * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
-         * installed) and the map has not already been instantiated.. This will ensure that we only ever
-         * call {@link #setUpMap()} once when {@link #mMap} is not null.
-         * <p/>
-         * If it isn't installed {@link SupportMapFragment} (and
-         * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
-         * install/update the Google Play services APK on their device.
-         * <p/>
-         * A user can return to this FragmentActivity after following the prompt and correctly
-         * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
-         * have been completely destroyed during this process (it is likely that it would only be
-         * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
-         * method in {@link #onResume()} to guarantee that it will be called.
-         */
+    /**
+     * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
+     * installed) and the map has not already been instantiated.. This will ensure that we only ever
+     * call {@link #setUpMap()} once when {@link #mMap} is not null.
+     * <p/>
+     * If it isn't installed {@link SupportMapFragment} (and
+     * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
+     * install/update the Google Play services APK on their device.
+     * <p/>
+     * A user can return to this FragmentActivity after following the prompt and correctly
+     * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
+     * have been completely destroyed during this process (it is likely that it would only be
+     * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
+     * method in {@link #onResume()} to guarantee that it will be called.
+     */
 
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
@@ -155,42 +167,48 @@ public class MapsActivity extends FragmentActivity implements
 
             Location location = locationClient.getLastLocation();
 
-            if(location == null) return;
+            if (location == null) return;
 
             LatLng latlonlocation = convertLocationToLatLon(location);
 
-            ((DataHolderApplication)getApplication()).setCurrentLocation(latlonlocation);
+            ((DataHolderApplication) getApplication()).setCurrentLocation(latlonlocation);
 
             Log.w("CURRENT LOCATION IS: ", "" + latlonlocation);
 
+        } else if (locationClient != null) {
+
+            locationClient.connect();
+            Log.w("Maps siger: ", "LOcationCLient eer ikke null");
+
         } else {
+
 
             Log.w("LOCATION: ", "LOCATIONCLIENT ER NULL Eller connecter");
 
-            Toast.makeText(this, "Søger efter lokation...", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Søger efter lokation...", Toast.LENGTH_SHORT).show();
 
         }
 
-        if (((DataHolderApplication)getApplication()).getCurrentLocation() != null) {
+        if (((DataHolderApplication) getApplication()).getCurrentLocation() != null) {
             setLocation();
             updateLocationOnServer();
         } else {
 
-            Log.e("DER OPSTOD EN FEJL" , " LOKATIONEN ER NULL!!! <-- ER dette en emulator????");
+            Log.e("DER OPSTOD EN FEJL", " LOKATIONEN ER NULL!!! <-- ER dette en emulator????");
 
         }
 
     }
 
-    private void updateLocationOnServer(){
+    private void updateLocationOnServer() {
 
-        if(updateCounter == 9){
+        if (updateCounter == 9) {
 
-            Log.d("I RUUUN" , "AN I START SERVERHANDLER");
+            Log.d("I RUUUN", "AN I START SERVERHANDLER");
             addLocationConnect();
             updateCounter = 0;
 
-            Log.w("HEEEEYYYY" , "JEG KØRER UPDATE");
+            Log.w("HEEEEYYYY", "JEG KØRER UPDATE");
         } else {
 
             updateCounter++;
@@ -200,11 +218,11 @@ public class MapsActivity extends FragmentActivity implements
 
     }
 
-    private void addLocationConnect(){
+    private void addLocationConnect() {
 
         //Constructs URI with data for server
 
-        LatLng location = ((DataHolderApplication)getApplication()).getCurrentLocation();
+        LatLng location = ((DataHolderApplication) getApplication()).getCurrentLocation();
 
         double lat = location.latitude;
         double lon = location.longitude;
@@ -221,20 +239,25 @@ public class MapsActivity extends FragmentActivity implements
         this.startService(serverHandlerIntent);
 
 
+        //Starts gamecontrolelr
+        startService(controllerIntent);
+
+
     }
 
 
     /**
      * Takes a Location object and returns it as at LatLng object
+     *
      * @param location
      * @return
      */
     private LatLng convertLocationToLatLon(Location location) {
 
-            double lat = location.getLatitude();
-            double lon = location.getLongitude();
+        double lat = location.getLatitude();
+        double lon = location.getLongitude();
 
-            return new LatLng(lat, lon);
+        return new LatLng(lat, lon);
 
     }
 
@@ -245,7 +268,7 @@ public class MapsActivity extends FragmentActivity implements
 
         //Retrieve username and location and add fancy bubbles
         String username = getUsername();
-        LatLng location = ((DataHolderApplication)getApplication()).getCurrentLocation();
+        LatLng location = ((DataHolderApplication) getApplication()).getCurrentLocation();
         createBubble(username, location);
 
     }
@@ -253,6 +276,7 @@ public class MapsActivity extends FragmentActivity implements
 
     /**
      * Gets username from GUI activity
+     *
      * @return
      */
     private String getUsername() {
@@ -263,8 +287,9 @@ public class MapsActivity extends FragmentActivity implements
 
     /**
      * Creates fancy bubbles on map
+     *
      * @param iconCaption The texxt which shoulkd e inside the bubble
-     * @param location The placement of the bubble
+     * @param location    The placement of the bubble
      */
     private void createBubble(String iconCaption, LatLng location) {
         //Make new factory to genetate bubbles
@@ -292,9 +317,28 @@ public class MapsActivity extends FragmentActivity implements
         }, 0, 1000);
 
 
+        startScheduler();
+
+
+
     }
 
-    public void findPartner(View v){
+    private void startScheduler() {
+
+        scheduler.scheduleAtFixedRate
+                (new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                        startService(controllerIntent);
+
+                    }
+                }, 10, 5, TimeUnit.SECONDS);
+
+    }
+
+    public void findPartner(View v) {
         Button button = (Button) v;
 
         Intent intent = new Intent(this, SetupActivity.class);
@@ -359,5 +403,42 @@ public class MapsActivity extends FragmentActivity implements
 
     }
 
-}
 
+    class RunReciever extends ResultReceiver {
+
+
+        /**
+         * Create a new ResultReceive to receive results.  Your
+         * {@link #onReceiveResult} method will be called from the thread running
+         * <var>handler</var> if given, or from an arbitrary thread if null.
+         *
+         */
+        public RunReciever() {
+            super(mapHandler);
+        }
+
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            super.onReceiveResult(resultCode, resultData);
+
+            if(resultCode == 1){
+
+
+                Intent intent = resultData.getParcelable("START_INTENT");
+                String name = resultData.getString("NODE_NAME");
+
+                startActivity(intent);
+
+                Log.e("Starting: " , name);
+
+
+
+            }
+
+
+
+        }
+    }
+
+}

@@ -36,6 +36,10 @@
             android:name=".ServerHandler"
             android:exported="false" />
 
+        <service
+            android:name=".GameController"
+            android:exported="false" />
+
         <activity
             android:name=".StartNodeActivity"
             android:label="@string/title_activity_start_node" >

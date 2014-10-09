@@ -12,7 +12,7 @@ public class SawActivity extends Activity {
     ProgressBar pb;
     ToolHandler th;
     int startprogress = 0;
-    int progressSaw = th.getProgressSaw();
+    //int progressSaw = th.getProgressSaw();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
