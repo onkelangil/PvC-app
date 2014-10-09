@@ -35,7 +35,6 @@
         <service
             android:name=".ServerHandler"
             android:exported="false" />
-
         <service
             android:name=".GameController"
             android:exported="false" />
@@ -99,6 +98,22 @@
         <activity
             android:name=".MafiaSuccesActivity"
             android:label="@string/title_activity_mafia_succes" >
+        </activity>
+        <activity
+
+            android:name=".MafiaActivity"
+            android:label="@string/title_activity_mafia" >
+        </activity>
+        <activity
+            android:name=".PoliceMissionActivity"
+            android:label="@string/title_activity_police_mission" >
+        </activity>
+        <activity
+
+
+            android:name=".CameraActivity"
+            android:label="@string/title_activity_camera" >
+
         </activity>
     </application>
 

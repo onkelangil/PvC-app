@@ -37,6 +37,7 @@ public class SetupActivity extends Activity {
 
         setupAppState();
         Log.d("ONSTART KØRER" , "YUBIIII");
+
     }
 
 
