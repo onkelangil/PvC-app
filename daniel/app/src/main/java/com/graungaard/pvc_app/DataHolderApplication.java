@@ -101,8 +101,8 @@ public class DataHolderApplication extends Application {
         Double lat6 = new Double("56.167030");
         Double lon6 = new Double("10.204656");
 
-        Double lat7 = new Double("56.167030");
-        Double lon7 = new Double("10.204656");
+        Double lat7 = new Double("56.165607");
+        Double lon7 = new Double("10.206297");
 
 
         GameNode node1 = new GameNode("Start", new LatLng(lat1, lon1), StartNodeActivity.class);
@@ -122,6 +122,8 @@ public class DataHolderApplication extends Application {
         allNodes.add(node4);
         allNodes.add(node5);
         allNodes.add(node6);
+        allNodes.add(node7);
+        allNodes.add(node8);
 
         return allNodes;
     }
