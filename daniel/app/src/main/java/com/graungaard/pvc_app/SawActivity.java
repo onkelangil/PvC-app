@@ -24,7 +24,7 @@ public class SawActivity extends AbstractNode {
 
 
     public void open(View view){
-        progress.setMessage("SAW NU DET LÅRT!!! ");
+        progress.setMessage("SAV NU DET LÅRT!!! ");
         progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progress.show();
 
@@ -43,7 +43,8 @@ public class SawActivity extends AbstractNode {
                 while(jumpTime < totalProgressTime){
                     try {
                         sleep(200);
-                        updateProgress();
+                        jumpTime ++;
+                        //updateProgress();
                         progress.setProgress(jumpTime);
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
