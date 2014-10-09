@@ -80,20 +80,40 @@ public class DataHolderApplication extends Application {
 
         Log.e("I GENERATE NOTES", "WUHU OR SOMETHING");
         //Note to self: If this was a commercial app I would properbly store these in some xml somewhere..
-        Double lat1 = new Double("00.111");
-        Double lon1 = new Double("00.354");
+        Double lat1 = new Double("56.172107");
+        Double lon1 = new Double("10.187414");
 
-        Double lat2 = new Double("56.172512");
-        Double lon2 = new Double("10.189742");
+        Double lat2 = new Double("56.171236");
+        Double lon2 = new Double("10.189841");
+
+        Double lat3 = new Double("56.170567");
+        Double lon3 = new Double("10.189905");
+
+        Double lat4 = new Double("56.171274");
+        Double lon4 = new Double("10.191246");
+
+        Double lat5 = new Double("56.170809");
+        Double lon5 = new Double("10.197072");
+
+        Double lat6 = new Double("56.167030");
+        Double lon6 = new Double("10.204656");
 
 
-        GameNode node1 = new GameNode("Mission 1", new LatLng(lat1, lon1), GpsActivity.class);
-        GameNode node2 = new GameNode("Choice", new LatLng(lat2, lon2), PoliceActivity.class);
+        GameNode node1 = new GameNode("Opvækning", new LatLng(lat1, lon1), StartNodeActivity.class);
+        GameNode node2 = new GameNode("Mafosens Bror 1", new LatLng(lat2, lon2), GpsActivity.class);
+        GameNode node3 = new GameNode("Stor pizza 1", new LatLng(lat3, lon3), GpsActivity.class);
+        GameNode node4 = new GameNode("Don 1", new LatLng(lat4, lon4), PoliceActivity.class);
+        GameNode node5 = new GameNode("Bror 2", new LatLng(lat5, lon5), GpsActivity.class);
+        GameNode node6 = new GameNode("Choice", new LatLng(lat6, lon6), PoliceActivity.class);
 
         allNodes = new ArrayList<GameNode>();
 
         allNodes.add(node1);
         allNodes.add(node2);
+        allNodes.add(node3);
+        allNodes.add(node4);
+        allNodes.add(node5);
+        allNodes.add(node6);
 
         return allNodes;
     }

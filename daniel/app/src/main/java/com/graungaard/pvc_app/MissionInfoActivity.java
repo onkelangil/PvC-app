@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 
 public class MissionInfoActivity extends AbstractNode {
 
@@ -42,6 +44,11 @@ public class MissionInfoActivity extends AbstractNode {
 
     public void buttonOnClick(View v) {
         Button button = (Button) v;
-        startActivity(new Intent(this, GpsActivity.class));
+        ArrayList<GameNode> nodes = ((DataHolderApplication)getApplication()).getAllNodes();
+
+        for (GameNode node : nodes){
+
+            if(node.getName().equals("Opvækning") || node.getName().equals("Mafiosens Bror 1"));
+        };
     }
 }
