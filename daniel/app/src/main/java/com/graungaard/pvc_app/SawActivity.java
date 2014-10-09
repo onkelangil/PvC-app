@@ -1,27 +1,14 @@
 package com.graungaard.pvc_app;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 
-
-<<<<<<< HEAD
-public class SawActivity extends Activity {
-
-    ProgressBar pb;
-    ToolHandler th;
-    int startprogress = 0;
-    //int progressSaw = th.getProgressSaw();
-=======
 public class SawActivity extends AbstractNode {
     int jumpTime = 0;
     private ProgressDialog progress;
->>>>>>> origin/master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
