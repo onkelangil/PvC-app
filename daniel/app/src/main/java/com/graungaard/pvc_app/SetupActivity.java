@@ -38,6 +38,8 @@ public class SetupActivity extends Activity {
         setupAppState();
         Log.d("ONSTART KØRER" , "YUBIIII");
 
+        Intent intent = new Intent(this, GpsActivity.class);
+        startActivity(intent);
     }
 
 

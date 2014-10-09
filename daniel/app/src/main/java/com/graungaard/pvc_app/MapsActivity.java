@@ -390,6 +390,7 @@ public class MapsActivity extends FragmentActivity implements
 
     public void findPartner(View v) {
         Button button = (Button) v;
+        v.setVisibility(View.GONE);
 
         Intent intent = new Intent(this, SetupActivity.class);
         intent.putExtra("mainReciever", serverReciever);

@@ -1,6 +1,7 @@
 package com.graungaard.pvc_app;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,12 +20,22 @@ public class SawActivity extends AbstractNode {
     }
 
 
+    public void startSuccess(){
+
+        Intent intent = new Intent(this, SuccessActivity.class);
+        startActivity(intent);
+        finish();
+
+
+
+    }
+
     public void open(View view){
         progress.setMessage("SAV NU DET LÅRT!!! ");
         progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progress.show();
 
-        final int totalProgressTime = 1000;
+        final int totalProgressTime = 100;
 
         super.setWeapon("saw");
 
@@ -39,9 +50,19 @@ public class SawActivity extends AbstractNode {
                 while(jumpTime < totalProgressTime){
                     try {
                         sleep(200);
-                        jumpTime ++;
-                        //updateProgress();
-                        progress.setProgress(jumpTime);
+                       // jumpTime ++;
+                        updateProgress();
+
+                        if (jumpTime < totalProgressTime){
+
+                            progress.setProgress(jumpTime);
+
+                        } else {
+
+                            startSuccess();
+                        }
+
+
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
