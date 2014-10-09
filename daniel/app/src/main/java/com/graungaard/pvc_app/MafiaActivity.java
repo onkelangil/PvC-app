@@ -33,4 +33,5 @@ public class MafiaActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

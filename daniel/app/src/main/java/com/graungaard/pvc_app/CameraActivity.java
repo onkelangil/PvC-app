@@ -8,10 +8,11 @@ import android.graphics.Bitmap;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 public class CameraActivity extends AbstractNode {
-    Button btnTakePhoto;
+    ImageButton btnTakePhoto;
     ImageView imgTakenPhoto;
     private static final int CAM_REQUEST = 1313;
 
@@ -20,7 +21,7 @@ public class CameraActivity extends AbstractNode {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        btnTakePhoto = (Button) findViewById(R.id.button1);
+        btnTakePhoto = (ImageButton) findViewById(R.id.button1);
         imgTakenPhoto = (ImageView) findViewById(R.id.imageview1);
 
         btnTakePhoto.setOnClickListener(new btnTakePhotoClicker());

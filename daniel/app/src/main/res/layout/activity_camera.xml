@@ -6,19 +6,24 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".CameraActivity" >
+    tools:context=".CameraActivity"
+    android:background="#000000">
 
     <TextView
         android:id="@+id/textview1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Press the button, capture photo and enjoy!!" />
+        android:text="Klik på kameraet og tag billeder som bevismateriale"
+        android:textColor="#ffffff"
+        android:textSize="40sp"/>
 
-    <Button android:id="@+id/button1"
+    <ImageButton android:id="@+id/button1"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="Take Photo!"
-        android:layout_below="@+id/textview1"/>
+        android:src="@drawable/cameraaa"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <ImageView android:id="@+id/imageview1"
         android:layout_width="match_parent"
