@@ -24,10 +24,9 @@ public class AbstractNode extends Activity {
 
     public void setWeapon (String Weapon){
         toolHandler.setWeapon(Weapon);
-        Log.e("Lortet virker ", "Weapon er " + Weapon);
     }
 
-    public int getToolHandler() {
+    public int getToolHandlerProgress() {
         return toolHandler.getProgress();
     }
 }

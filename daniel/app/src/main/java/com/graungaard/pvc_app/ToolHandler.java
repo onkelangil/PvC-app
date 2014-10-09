@@ -21,7 +21,7 @@ public class ToolHandler implements SensorEventListener {
     private float deltaY;
     private float deltaZ;
     private int progress =0;
-    private String weapon = "saw";
+    private String weapon = "";
 
 
     public String getWeapon() {
@@ -76,7 +76,7 @@ public class ToolHandler implements SensorEventListener {
             if (movementX > 3.0) {
                 progress++;
             }
-            if (progress == 100) {
+            if (progress == 1000) {
 
                 Log.i("sawSucces", "Succesfull");
             }
@@ -123,7 +123,7 @@ public class ToolHandler implements SensorEventListener {
             if (movementY > 3.0) {
                 progress++;
             }
-            if (progress == 100) {
+            if (progress == 1000) {
 
                 Log.i("AxesSucces", "Succesfull");
             }
