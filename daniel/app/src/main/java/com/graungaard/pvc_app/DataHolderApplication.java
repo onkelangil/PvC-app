@@ -101,6 +101,9 @@ public class DataHolderApplication extends Application {
         Double lat6 = new Double("56.167030");
         Double lon6 = new Double("10.204656");
 
+        Double lat7 = new Double("56.167030");
+        Double lon7 = new Double("10.204656");
+
 
         GameNode node1 = new GameNode("Start", new LatLng(lat1, lon1), StartNodeActivity.class);
         GameNode node2 = new GameNode("Mafiosoens Bror", new LatLng(lat2, lon2), GpsActivity.class);
@@ -108,6 +111,8 @@ public class DataHolderApplication extends Application {
         GameNode node4 = new GameNode("Dons Mission", new LatLng(lat4, lon4), GpsActivity.class);
         GameNode node5 = new GameNode("Brorens anden mission", new LatLng(lat5, lon5), GpsActivity.class);
         GameNode node6 = new GameNode("JustAnotherMission", new LatLng(lat6, lon6), PoliceActivity.class);
+        GameNode node7 = new GameNode("PoliceMission", new LatLng(lat7, lon7), WeaponActivity.class);
+        GameNode node8 = new GameNode("MafiaMission", new LatLng(lat7, lon7), CameraActivity.class);
 
         allNodes = new ArrayList<GameNode>();
 
