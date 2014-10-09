@@ -14,7 +14,7 @@
         android:layout_width="100dp"
         android:layout_height="230dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="En anden studerende ville ikke arbejde for mig, så han er nu ordnet. Jeg vil have dig til at partere liget så politiet ikke fatter mistanke."
+        android:text="Min bror Capo Bastoner, har brug for din hjælp. Han har taget sig af en stikker, og det er din opgave at parterer stikkeren og rydde ham af vejen. "
         android:id="@+id/textView"
         android:background="#000000"
         android:textColor="#ffffff"

@@ -25,7 +25,7 @@
     <string name="title_activity_police_succes">PoliceSuccesActivity</string>
     <string name="title_activity_mafia_succes">MafiaSuccesActivity</string>
     <string name="map_button_text">Find Partner</string>
-    <string name="download_button">Download</string>
-    <string name="download_text">Press the button to download music</string>
+    <string name="download_button">SAV NU!</string>
+    <string name="download_text">SAV!</string>
 
 </resources>
