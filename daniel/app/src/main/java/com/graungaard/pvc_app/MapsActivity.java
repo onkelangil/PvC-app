@@ -74,7 +74,7 @@ public class MapsActivity extends FragmentActivity implements
         setUpMapIfNeeded();
 
         //Turns on blue dot
-        //mMap.setMyLocationEnabled(true);
+        mMap.setMyLocationEnabled(true);
 
 
         locationClient = new LocationClient(this, this, this);
@@ -100,7 +100,7 @@ public class MapsActivity extends FragmentActivity implements
 
         if (((DataHolderApplication) getApplication()).getCurrentLocation() != null) {
 
-            setLocation();
+           // setLocation();
 
         } else {
 
@@ -216,7 +216,7 @@ public class MapsActivity extends FragmentActivity implements
         }
 
         if (((DataHolderApplication) getApplication()).getCurrentLocation() != null) {
-            setLocation();
+            //setLocation();
             updateLocationOnServer();
         } else {
 

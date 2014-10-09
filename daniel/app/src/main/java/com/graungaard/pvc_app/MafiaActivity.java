@@ -1,9 +1,12 @@
 package com.graungaard.pvc_app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
 
 
 public class MafiaActivity extends Activity {
@@ -32,6 +35,23 @@ public class MafiaActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goToMap(){
+
+        ArrayList<GameNode> nodes = ((DataHolderApplication)getApplication()).getAllNodes();
+
+        for (GameNode node : nodes){
+
+            if(node.getName().equals("PoliceMission"));
+
+            node.setVisible(true);
+
+            startActivity(new Intent(this,MapsActivity.class));
+        }
+
+
+
     }
 
 }

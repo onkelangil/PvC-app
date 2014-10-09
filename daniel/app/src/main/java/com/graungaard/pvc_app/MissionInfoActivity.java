@@ -1,9 +1,5 @@
 package com.graungaard.pvc_app;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -55,8 +51,8 @@ public class MissionInfoActivity extends AbstractNode {
                 if(node.getName().equals("Mafiosoens Bror"));
 
                 node.setVisible(true);
-                finish();
 
+                startActivity(new Intent(this,MapsActivity.class));
             }
 
 

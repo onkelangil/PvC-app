@@ -38,8 +38,6 @@ public class SetupActivity extends Activity {
         setupAppState();
         Log.d("ONSTART KØRER" , "YUBIIII");
 
-        Intent intent = new Intent(this, GpsActivity.class);
-        startActivity(intent);
     }
 
 
@@ -173,7 +171,7 @@ public class SetupActivity extends Activity {
             //Log.w("IS; ", mylocation.toString());
             //Log.wtf("EQUAL TO; ", otherlocation.toString());
 
-            Double distance = new Double(0.00005);
+            Double distance = new Double(0.00175);
 
 
             //TODO: CHECK CONSTANT
