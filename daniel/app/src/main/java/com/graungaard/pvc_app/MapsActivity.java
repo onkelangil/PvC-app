@@ -116,6 +116,8 @@ public class MapsActivity extends FragmentActivity implements
         ArrayList<GameNode> nodes = ((DataHolderApplication)getApplication()).getAllNodes();
 
         mMap.clear();
+        //Ensures that the users icon gets placed again
+        newarkMap = null;
         for (GameNode node : nodes){
 
 
