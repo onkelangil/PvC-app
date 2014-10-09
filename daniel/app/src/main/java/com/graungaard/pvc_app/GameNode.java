@@ -11,17 +11,19 @@ public class GameNode {
     private boolean vistited;
     private String name;
     private LatLng location;
+    private Class activity;
 
-    public AbstractNode getActivity() {
-        return activity;
-    }
 
-    public void setActivity(AbstractNode activity) {
+    public GameNode(String name, LatLng location, Class activity) {
+        this.vistited = false;
+        this.name = name;
+        this.location = location;
         this.activity = activity;
     }
 
-    private AbstractNode activity;
-
+    public Class getActivity() {
+        return activity;
+    }
 
     public boolean isVistited() {
         return vistited;
@@ -45,11 +47,18 @@ public class GameNode {
         return name;
     }
 
-    public void setVistited(boolean vistited) {
+    public void setVistited(boolean visited) {
 
-        this.vistited = vistited;
+        this.vistited = visited;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "GameNode{" +
+                "vistited=" + vistited +
+                ", name='" + name + '\'' +
+                ", location=" + location +
+                ", activity=" + activity +
+                '}';
+    }
 }

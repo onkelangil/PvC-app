@@ -190,7 +190,7 @@ public class SetupActivity extends Activity {
             }
 
 
-            if (compareCoordinates(otherlocation, mylocation, distance) && myid != user.getId()) {
+            if (dataHolderApplication.compareCoordinates(otherlocation, mylocation, distance) && myid != user.getId()) {
 
                 ((DataHolderApplication) getApplication()).setPartner(user);
 
@@ -212,46 +212,18 @@ public class SetupActivity extends Activity {
 
 
     /**
-     * Takes two latlon objects and a distance then in checks if the objects are within distance of each other.
-     */
-    public Boolean compareCoordinates(LatLng firstcoordinate, LatLng secondcoodinate, Double distance) throws NullPointerException {
-
-        Double longf = 00.000300;
-        Double langf = 00.000300;
-
-        if(firstcoordinate == null || secondcoodinate == null){
-
-            return false;
-        }
-
-        if (firstcoordinate.latitude <= secondcoodinate.latitude) {
-            longf = secondcoodinate.latitude - firstcoordinate.latitude;
-        } else if (firstcoordinate.latitude >= secondcoodinate.latitude) {
-            longf = firstcoordinate.latitude - secondcoodinate.latitude;
-        }
-
-        if (firstcoordinate.longitude <= secondcoodinate.longitude) {
-            langf = secondcoodinate.latitude - firstcoordinate.latitude;
-        } else if (firstcoordinate.longitude >= secondcoodinate.longitude) {
-            langf = firstcoordinate.latitude - secondcoodinate.latitude;
-        }
-
-        if (longf < distance && langf < distance) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
-
-
-    /**
      * Makes toast that tells user that a partner has been found
      * @param name name of the partner
      */
     private void userIsSet(String name) {
         Toast.makeText(this, "Du er på hold med " + name + " og det er ret awesome", Toast.LENGTH_SHORT).show();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         finish();
     }
 

@@ -38,7 +38,7 @@ public class ServerHandler extends IntentService {
     public ServerHandler() {
 
         //Øøøøøøhhh superkald?!
-        super("");
+        super("ServerHandler");
 
         this.serverName = "http://after-dark.dk/pvc";
 
@@ -293,8 +293,8 @@ public class ServerHandler extends IntentService {
         String[] data = source.split("@");
 
 
-        Log.e("DATA ARRAY: " , data.toString());
-        Log.e("DATA SOURCE: " , source);
+       // Log.e("DATA ARRAY: " , data.toString());
+       // Log.e("DATA SOURCE: " , source);
 
         if(data.length == 2 ){
 
