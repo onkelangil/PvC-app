@@ -9,19 +9,19 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class PoliceActivity extends AbstractNode {
+public class ValgActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_police);
+        setContentView(R.layout.activity_valg);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.police, menu);
+        getMenuInflater().inflate(R.menu.valg, menu);
         return true;
     }
 
@@ -36,9 +36,13 @@ public class PoliceActivity extends AbstractNode {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public void buttonOnClick(View v) {
+    public void buttonOnClick1(View v){
         Button button = (Button) v;
-        startActivity(new Intent(this, PoliceMessageActivity.class));
+        startActivity(new Intent(this, PoliceSuccesActivity.class));
+    }
+
+    public void buttonOnClick2(View v){
+        Button button = (Button) v;
+        startActivity(new Intent(this, MafiaSuccesActivity.class));
     }
 }
