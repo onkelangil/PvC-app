@@ -21,7 +21,7 @@ public class ToolHandler implements SensorEventListener {
     private float deltaY;
     private float deltaZ;
     private int progress =0;
-    private String weapon;
+    private String weapon = "saw";
 
 
     public String getWeapon() {
@@ -174,5 +174,7 @@ public class ToolHandler implements SensorEventListener {
 
     }
 
-    public  int getProgress(){  return progress;}
+    public  int getProgress(){
+        Log.e("HELIJAL", "Progress" + progress);
+        return progress;}
 }

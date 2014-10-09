@@ -35,6 +35,10 @@ public class SetupActivity extends Activity {
 
         serverReciever = this.getIntent().getParcelableExtra("mainReciever");
 
+        Intent intent = new Intent(this, SawActivity.class);
+        startActivity(intent);
+
+
         setupAppState();
         Log.d("ONSTART KØRER" , "YUBIIII");
 

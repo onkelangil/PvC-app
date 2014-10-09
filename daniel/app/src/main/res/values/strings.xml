@@ -22,5 +22,7 @@
     <string name="title_activity_police_message">PoliceMessageActivity</string>
     <string name="title_activity_test">Test</string>
     <string name="map_button_text">Find Partner</string>
+    <string name="download_button">Download</string>
+    <string name="download_text">Press the button to download music</string>
 
 </resources>
