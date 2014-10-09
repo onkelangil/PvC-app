@@ -39,6 +39,10 @@ public class GpsActivity extends AbstractNode {
 
     public void buttonOnClick(View v) {
         Button button = (Button) v;
-        startActivity(new Intent(this, WeaponActivity.class));
+
+        Intent intent = new Intent(this, WeaponActivity.class);
+        intent.putExtra("CALLER_STRING", "GPSACTIVITY");
+
+        startActivity(intent);
     }
 }

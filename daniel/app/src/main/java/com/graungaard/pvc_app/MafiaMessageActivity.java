@@ -39,7 +39,9 @@ public class MafiaMessageActivity extends AbstractNode {
 
     public void buttonOnClick(View v) {
         Button button = (Button) v;
-        startActivity(new Intent(this, MissionInfoActivity.class));
+
+        Intent intent = new Intent(this, MissionInfoActivity.class);
+        startActivity(intent);
 
 
     }

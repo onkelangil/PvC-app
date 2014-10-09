@@ -219,6 +219,15 @@ public class SetupActivity extends Activity {
             e.printStackTrace();
         }
 
+        ArrayList<GameNode> nodes = ((DataHolderApplication)getApplication()).getAllNodes();
+
+        for (GameNode node : nodes){
+
+            if(node.getName().equals("Start")){
+                node.setVisible(true);
+            }
+        }
+
         finish();
     }
 

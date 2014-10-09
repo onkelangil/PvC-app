@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 
 public class SuccessActivity extends AbstractNode {
 
@@ -33,4 +35,18 @@ public class SuccessActivity extends AbstractNode {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void goToMap(){
+        ArrayList<GameNode> nodes = ((DataHolderApplication)getApplication()).getAllNodes();
+
+        for (GameNode node : nodes){
+
+            if(node.getName().equals("Italienske pizzeria") || node.getName().equals("Dons Mission") || node.getName().equals("Brorens anden mission") || node.getName().equals("JustAnotherMission"));
+
+            node.setVisible(true);
+            finish();
+
+        }
+    }
+
 }

@@ -16,7 +16,8 @@
         android:layout_centerHorizontal="true"
         android:textColor="#ffffff"
         android:textSize="25sp"
-        android:id="@+id/jegharligekaldtdennenoget" />
+        android:id="@+id/mission" />
+
 
     <ImageView
         android:layout_width="wrap_content"
