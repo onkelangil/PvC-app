@@ -111,8 +111,8 @@ public class DataHolderApplication extends Application {
         GameNode node4 = new GameNode("Dons Mission", new LatLng(lat4, lon4), GpsActivity.class);
         GameNode node5 = new GameNode("Brorens anden mission", new LatLng(lat5, lon5), GpsActivity.class);
         GameNode node6 = new GameNode("JustAnotherMission", new LatLng(lat6, lon6), PoliceActivity.class);
-        GameNode node7 = new GameNode("PoliceMission", new LatLng(lat7, lon7), WeaponActivity.class);
-        GameNode node8 = new GameNode("MafiaMission", new LatLng(lat7, lon7), CameraActivity.class);
+        GameNode node7 = new GameNode("PoliceMission", new LatLng(lat7, lon7), CameraActivity.class);
+        GameNode node8 = new GameNode("MafiaMission", new LatLng(lat7, lon7), WeaponActivity.class);
 
         allNodes = new ArrayList<GameNode>();
 

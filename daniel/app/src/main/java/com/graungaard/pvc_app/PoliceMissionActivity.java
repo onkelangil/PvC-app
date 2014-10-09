@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 
 public class PoliceMissionActivity extends Activity {
 
@@ -36,6 +38,20 @@ public class PoliceMissionActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void goToMap(){
+        ArrayList<GameNode> nodes = ((DataHolderApplication)getApplication()).getAllNodes();
+
+        for (GameNode node : nodes){
+
+            if(node.getName().equals("PoliceMission"));
+
+            node.setVisible(true);
+            finish();
+
+        }
+    }
+
 
     }
 
