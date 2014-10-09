@@ -42,6 +42,18 @@
             android:id="@+id/imageView3"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ax2" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="200sp"
+            android:layout_height="60sp"
+            android:onClick="open"
+            android:text="@string/download_button"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffffff"
+            />
+
     </LinearLayout>
 
 </RelativeLayout>

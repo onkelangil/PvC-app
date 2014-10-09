@@ -60,7 +60,7 @@
             android:label="@string/title_activity_weapon" >
         </activity>
         <activity
-            android:name=".SawActivity"
+            android:name=".AxeActivity"
             android:label="@string/title_activity_saw" >
         </activity>
         <activity
