@@ -44,5 +44,7 @@ public class ValgActivity extends Activity {
     public void buttonOnClick2(View v){
         Button button = (Button) v;
         startActivity(new Intent(this, MafiaSuccesActivity.class));
+
+        finish();
     }
 }

@@ -1,6 +1,5 @@
 package com.graungaard.pvc_app;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,13 +40,17 @@ public class SuccessActivity extends AbstractNode {
 
         for (GameNode node : nodes){
 
-            if(node.getName().equals("Italienske pizzeria") || node.getName().equals("Dons Mission") || node.getName().equals("Brorens anden mission") || node.getName().equals("JustAnotherMission"));
+            node.setVisible(false);
+            if(node.getName().equals("Italienske pizzeria") || node.getName().equals("Dons Mission") || node.getName().equals("Brorens anden mission") || node.getName().equals("JustAnotherMission")){
 
-            node.setVisible(true);
 
-            startActivity(new Intent(this, MapsActivity.class));
+                node.setVisible(true);
+
+            }
+
 
         }
+        finish();
     }
 
 }

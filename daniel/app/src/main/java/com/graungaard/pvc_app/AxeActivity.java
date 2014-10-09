@@ -1,20 +1,83 @@
 package com.graungaard.pvc_app;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.view.View;
 
 public class AxeActivity extends AbstractNode {
+    int jumpTime = 0;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_axe);
+        progress = new ProgressDialog(this);
+        //TODO: INSERT SESSION MANAGER
     }
 
 
+    public void open(View view){
+        progress.setMessage("HAK NU DET LÅRT!!! ");
+        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progress.show();
+
+        final int totalProgressTime = 100;
+
+        super.setWeapon("ax");
+
+
+
+        final Thread t = new Thread(){
+
+            @Override
+            public void run(){
+
+
+                while(jumpTime < totalProgressTime){
+                    try {
+                        sleep(200);
+                        //jumpTime ++;
+                        updateProgress();
+
+                        if (jumpTime < totalProgressTime){
+
+                            progress.setProgress(jumpTime);
+
+                        } else {
+
+                            startSuccess();
+                        }
+
+                        progress.setProgress(jumpTime);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                }
+
+            }
+        };
+        t.start();
+
+    }
+
+    protected void startSuccess(){
+
+
+        Intent intent = new Intent(this, SuccessActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
+
+    private void updateProgress(){
+        jumpTime = super.getToolHandlerProgress();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

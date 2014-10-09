@@ -25,10 +25,8 @@ public class SawActivity extends AbstractNode {
         Intent intent = new Intent(this, SuccessActivity.class);
         startActivity(intent);
         finish();
-
-
-
     }
+
 
     public void open(View view){
         progress.setMessage("SAV NU DET LÅRT!!! ");
@@ -75,6 +73,7 @@ public class SawActivity extends AbstractNode {
         t.start();
 
     }
+
 
     private void updateProgress(){
     jumpTime = super.getToolHandlerProgress();

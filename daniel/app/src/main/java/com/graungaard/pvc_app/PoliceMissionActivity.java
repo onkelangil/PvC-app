@@ -1,12 +1,11 @@
 package com.graungaard.pvc_app;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+
+import java.util.ArrayList;
 
 
 public class PoliceMissionActivity extends Activity {
@@ -36,6 +35,22 @@ public class PoliceMissionActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void goToMap(){
+        ArrayList<GameNode> nodes = ((DataHolderApplication)getApplication()).getAllNodes();
+
+        for (GameNode node : nodes){
+
+            node.setVisible(false);
+            if(node.getName().equals("PoliceMission")) {
+
+                node.setVisible(true);
+
+
+            }
+        }
+    }
+
 
     }
 

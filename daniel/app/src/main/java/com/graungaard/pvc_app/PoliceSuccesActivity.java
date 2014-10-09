@@ -39,5 +39,7 @@ public class PoliceSuccesActivity extends Activity {
     public void buttonOnClick(View v){
         Button button = (Button) v;
         startActivity(new Intent(this, PoliceMissionActivity.class));
+
+        finish();
     }
 }

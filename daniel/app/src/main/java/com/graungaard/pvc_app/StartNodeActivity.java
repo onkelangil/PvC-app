@@ -1,10 +1,8 @@
 package com.graungaard.pvc_app;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,6 +47,7 @@ public class StartNodeActivity extends AbstractNode {
         mp.start();
         startActivity(new Intent(this, CallActivity.class));
         //Log.e("LatLng " GameNode.getLatLng(1));
+        finish();
 
     }
 

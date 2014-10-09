@@ -1,6 +1,6 @@
 package com.graungaard.pvc_app;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,13 +10,11 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 
-public class MissionInfoActivity extends AbstractNode {
+public class MissionInfoActivity extends Activity {
 
-    private String callerID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        callerID = getIntent().getStringExtra("CALLER_STRING");
         setContentView(R.layout.activity_mission_info);
     }
 
@@ -44,17 +42,20 @@ public class MissionInfoActivity extends AbstractNode {
         Button button = (Button) v;
 
 
-            ArrayList<GameNode> nodes = ((DataHolderApplication)getApplication()).getAllNodes();
+           ArrayList<GameNode> nodes = ((DataHolderApplication)getApplication()).getAllNodes();
 
             for (GameNode node : nodes){
 
-                if(node.getName().equals("Mafiosoens Bror"));
+                if(node.getName().equals("Mafiosoens Bror")) {
 
-                node.setVisible(true);
+                    node.setVisible(true);
 
-                startActivity(new Intent(this,MapsActivity.class));
+                }
+
+
             }
 
+        finish();
 
     }
 }

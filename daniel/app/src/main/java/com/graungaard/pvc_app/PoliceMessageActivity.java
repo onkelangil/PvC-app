@@ -1,6 +1,5 @@
 package com.graungaard.pvc_app;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -39,5 +38,7 @@ public class PoliceMessageActivity extends AbstractNode {
     public void buttonOnClick(View v) {
         Button button = (Button) v;
         startActivity(new Intent(this, ValgActivity.class));
+
+        finish();
     }
 }

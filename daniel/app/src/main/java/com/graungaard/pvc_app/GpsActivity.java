@@ -1,6 +1,5 @@
 package com.graungaard.pvc_app;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -44,5 +43,7 @@ public class GpsActivity extends AbstractNode {
         intent.putExtra("CALLER_STRING", "GPSACTIVITY");
 
         startActivity(intent);
+
+        finish();
     }
 }
