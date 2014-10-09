@@ -16,9 +16,11 @@ import java.util.ArrayList;
 
 public class MissionInfoActivity extends AbstractNode {
 
+    private String callerID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        callerID = getIntent().getStringExtra("CALLER_STRING");
         setContentView(R.layout.activity_mission_info);
     }
 
@@ -44,11 +46,19 @@ public class MissionInfoActivity extends AbstractNode {
 
     public void buttonOnClick(View v) {
         Button button = (Button) v;
-        ArrayList<GameNode> nodes = ((DataHolderApplication)getApplication()).getAllNodes();
 
-        for (GameNode node : nodes){
 
-            if(node.getName().equals("Opvækning") || node.getName().equals("Mafiosens Bror 1"));
-        };
+            ArrayList<GameNode> nodes = ((DataHolderApplication)getApplication()).getAllNodes();
+
+            for (GameNode node : nodes){
+
+                if(node.getName().equals("Mafiosoens Bror"));
+
+                node.setVisible(true);
+                finish();
+
+            }
+
+
     }
 }

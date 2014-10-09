@@ -83,6 +83,9 @@ public class DataHolderApplication extends Application {
         Double lat1 = new Double("56.172107");
         Double lon1 = new Double("10.187414");
 
+        //Double lat1 = new Double("56.1719212");
+        //Double lon1 = new Double("10.1884509");
+
         Double lat2 = new Double("56.171236");
         Double lon2 = new Double("10.189841");
 
@@ -99,12 +102,12 @@ public class DataHolderApplication extends Application {
         Double lon6 = new Double("10.204656");
 
 
-        GameNode node1 = new GameNode("Opvækning", new LatLng(lat1, lon1), StartNodeActivity.class);
-        GameNode node2 = new GameNode("Mafosens Bror 1", new LatLng(lat2, lon2), GpsActivity.class);
-        GameNode node3 = new GameNode("Stor pizza 1", new LatLng(lat3, lon3), GpsActivity.class);
-        GameNode node4 = new GameNode("Don 1", new LatLng(lat4, lon4), PoliceActivity.class);
-        GameNode node5 = new GameNode("Bror 2", new LatLng(lat5, lon5), GpsActivity.class);
-        GameNode node6 = new GameNode("Choice", new LatLng(lat6, lon6), PoliceActivity.class);
+        GameNode node1 = new GameNode("Start", new LatLng(lat1, lon1), StartNodeActivity.class);
+        GameNode node2 = new GameNode("Mafiosoens Bror", new LatLng(lat2, lon2), GpsActivity.class);
+        GameNode node3 = new GameNode("Italienske pizzeria", new LatLng(lat3, lon3), GpsActivity.class);
+        GameNode node4 = new GameNode("Dons Mission", new LatLng(lat4, lon4), GpsActivity.class);
+        GameNode node5 = new GameNode("Brorens anden mission", new LatLng(lat5, lon5), GpsActivity.class);
+        GameNode node6 = new GameNode("JustAnotherMission", new LatLng(lat6, lon6), PoliceActivity.class);
 
         allNodes = new ArrayList<GameNode>();
 
@@ -124,8 +127,8 @@ public class DataHolderApplication extends Application {
      */
     public Boolean compareCoordinates(LatLng firstcoordinate, LatLng secondcoodinate, Double distance) throws NullPointerException {
 
-        Double longf = 00.000300;
-        Double langf = 00.000300;
+        Double longf = 00.030000;
+        Double langf = 00.030000;
 
         if(firstcoordinate == null || secondcoodinate == null){
 

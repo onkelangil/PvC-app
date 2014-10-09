@@ -114,22 +114,18 @@ public class MapsActivity extends FragmentActivity implements
 
     private void placeNodes() {
         ArrayList<GameNode> nodes = ((DataHolderApplication)getApplication()).getAllNodes();
-
-        mMap.clear();
+        Log.e("HAHAHAHAH", "HDJSAK" );
+        //mMap.clear();
         //Ensures that the users icon gets placed again
         newarkMap = null;
         for (GameNode node : nodes){
-
 
             if(node.isVisible()){
 
                 createBubble(node.getName(), node.getLocation());
 
             }
-
-
         }
-
 
     }
 
@@ -302,19 +298,19 @@ public class MapsActivity extends FragmentActivity implements
         LatLng location = ((DataHolderApplication) getApplication()).getCurrentLocation();
 
         //Check if newmark has been added before
-        /*if (newarkMap == null) {
+        if (newarkMap == null) {
 
             newarkMap = new GroundOverlayOptions()
-                    .image(BitmapDescriptorFactory.fromResource(R.drawable.newark_nj_1922))
-                    .position(location, 86f, 65f);
+                    .image(BitmapDescriptorFactory.fromResource(R.drawable.sawblade))
+                    .position(location, 15f, 15f);
             imageOverlay = mMap.addGroundOverlay(newarkMap);
 
         } else {
 
-            newarkMap.position(location, 86f, 65f);
+            newarkMap.position(location, 15f, 15f);
 
         }
-*/
+
 
 
         //createBubble(username, location);
