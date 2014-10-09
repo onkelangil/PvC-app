@@ -27,5 +27,6 @@
     <string name="map_button_text">Find Partner</string>
     <string name="download_button">SAV NU!</string>
     <string name="download_text">SAV!</string>
+    <string name="title_activity_camera">CameraActivity</string>
 
 </resources>
