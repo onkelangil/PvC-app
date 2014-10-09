@@ -100,6 +100,7 @@
             android:label="@string/title_activity_mafia_succes" >
         </activity>
         <activity
+
             android:name=".MafiaActivity"
             android:label="@string/title_activity_mafia" >
         </activity>
@@ -108,8 +109,11 @@
             android:label="@string/title_activity_police_mission" >
         </activity>
         <activity
-            android:name=".PoliceMissionInfoActivity"
-            android:label="@string/title_activity_police_mission_info" >
+
+
+            android:name=".CameraActivity"
+            android:label="@string/title_activity_camera" >
+
         </activity>
     </application>
 

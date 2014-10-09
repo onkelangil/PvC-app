@@ -83,8 +83,8 @@ public class DataHolderApplication extends Application {
         Double lat1 = new Double("00.111");
         Double lon1 = new Double("00.354");
 
-        Double lat2 = new Double("56.354");
-        Double lon2 = new Double("09.111");
+        Double lat2 = new Double("56.172512");
+        Double lon2 = new Double("10.189742");
 
 
         GameNode node1 = new GameNode("Mission 1", new LatLng(lat1, lon1), GpsActivity.class);

@@ -12,6 +12,17 @@ public class GameNode {
     private String name;
     private LatLng location;
     private Class activity;
+    private boolean visible;
+
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
 
 
     public GameNode(String name, LatLng location, Class activity) {
@@ -19,6 +30,7 @@ public class GameNode {
         this.name = name;
         this.location = location;
         this.activity = activity;
+        this.visible = false;
     }
 
     public Class getActivity() {

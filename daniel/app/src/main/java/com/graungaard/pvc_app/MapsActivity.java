@@ -20,10 +20,13 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.GroundOverlay;
+import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
@@ -45,8 +48,11 @@ public class MapsActivity extends FragmentActivity implements
     private Intent serverHandlerIntent;
     private ResultReceiver serverReciever;
     private int updateCounter = 9;
-
     private Intent controllerIntent;
+
+    //Graphical stuff
+    private GroundOverlayOptions newarkMap;
+    private GroundOverlay imageOverlay;
 
     final Handler mapHandler = new Handler();
 
@@ -101,6 +107,30 @@ public class MapsActivity extends FragmentActivity implements
             Toast toast = Toast.makeText(getApplicationContext(), "Venter på placering...", Toast.LENGTH_SHORT);
             toast.show();
         }
+
+        placeNodes();
+
+    }
+
+    private void placeNodes() {
+        ArrayList<GameNode> nodes = ((DataHolderApplication)getApplication()).getAllNodes();
+
+        mMap.clear();
+        //Ensures that the users icon gets placed again
+        newarkMap = null;
+        for (GameNode node : nodes){
+
+
+            if(node.isVisible()){
+
+                createBubble(node.getName(), node.getLocation());
+
+            }
+
+
+        }
+
+
     }
 
     @Override
@@ -153,7 +183,7 @@ public class MapsActivity extends FragmentActivity implements
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        //mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
 
 
@@ -246,6 +276,7 @@ public class MapsActivity extends FragmentActivity implements
     }
 
 
+
     /**
      * Takes a Location object and returns it as at LatLng object
      *
@@ -269,9 +300,28 @@ public class MapsActivity extends FragmentActivity implements
         //Retrieve username and location and add fancy bubbles
         String username = getUsername();
         LatLng location = ((DataHolderApplication) getApplication()).getCurrentLocation();
-        createBubble(username, location);
+
+        //Check if newmark has been added before
+        /*if (newarkMap == null) {
+
+            newarkMap = new GroundOverlayOptions()
+                    .image(BitmapDescriptorFactory.fromResource(R.drawable.newark_nj_1922))
+                    .position(location, 86f, 65f);
+            imageOverlay = mMap.addGroundOverlay(newarkMap);
+
+        } else {
+
+            newarkMap.position(location, 86f, 65f);
+
+        }
+*/
+
+
+        //createBubble(username, location);
 
     }
+
+
 
 
     /**

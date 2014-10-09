@@ -84,8 +84,8 @@ public class GameController extends IntentService {
         if (currentlocation == null || nodelocation == null) return;
 
         //TODO: Check constant
-        if(((DataHolderApplication)getApplication()).compareCoordinates(currentlocation, nodelocation , new Double("1.00"))
-                && !node.isVistited()){
+        if(((DataHolderApplication)getApplication()).compareCoordinates(currentlocation, nodelocation , new Double("0.000100"))
+                && !node.isVistited() && node.isVisible()){
 
             Intent intent = new Intent(this, node.getActivity());
 

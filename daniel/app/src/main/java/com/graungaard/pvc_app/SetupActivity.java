@@ -2,16 +2,13 @@ package com.graungaard.pvc_app;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.MediaController;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -38,12 +35,9 @@ public class SetupActivity extends Activity {
 
         serverReciever = this.getIntent().getParcelableExtra("mainReciever");
 
-        Intent intent = new Intent(this, SawActivity.class);
-        startActivity(intent);
-
-
         setupAppState();
         Log.d("ONSTART KØRER" , "YUBIIII");
+
     }
 
 
@@ -177,8 +171,7 @@ public class SetupActivity extends Activity {
             //Log.w("IS; ", mylocation.toString());
             //Log.wtf("EQUAL TO; ", otherlocation.toString());
 
-            Double distance = new Double(10.0000);
-
+            Double distance = new Double(0.00005);
 
 
             //TODO: CHECK CONSTANT

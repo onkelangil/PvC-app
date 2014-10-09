@@ -29,6 +29,6 @@
     <string name="download_text">SAV!</string>
     <string name="title_activity_mafia">MafiaActivity</string>
     <string name="title_activity_police_mission">PoliceMissionActivity</string>
-    <string name="title_activity_police_mission_info">PoliceMissionInfoActivity</string>
+    <string name="title_activity_camera">CameraActivity</string>
 
 </resources>
